@@ -1,22 +1,28 @@
 import {
   ActionIcon,
-  Text,
+  Badge,
+  Button,
+  Divider,
   Group,
   Paper,
-  useMantineColorScheme,
-  Badge,
-  Divider,
-  Button
+  Text,
+  useMantineColorScheme
 } from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import { nanoid } from 'nanoid';
-import { useScenarioActions, useScenarios } from '../../stores/ScenariosStore';
-import ScenarioOptions from './ScenarioOptions';
+import { useStageActions, useStages } from '../../stores/StagesStore';
+import { formatDuration } from '../../util/timeFormat';
+import { StageDragDrop } from './StageDragDrop';
 
-export default function OptionsSideBar() {
+function randomDuration() {
+  let rand = Math.floor(Math.random() * 300) + 1;
+  return `${rand}`;
+}
+
+export default function StagesBar() {
   const { colorScheme } = useMantineColorScheme();
-  const scenarios = useScenarios();
-  const { addScenario } = useScenarioActions();
+  const stages = useStages();
+  const { addStage } = useStageActions();
 
   return (
     <Paper
@@ -26,13 +32,13 @@ export default function OptionsSideBar() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
-        minWidth: "max-content"
+        width: '180px'
       }}
     >
       <Group p="sm">
         <Group spacing={5}>
           <Text color="gray.5" fz="xs" fw="bold" pl="lg" transform="uppercase">
-            Scenarios
+            Stages
           </Text>
           <Badge
             sx={{ width: 20, height: 20, pointerEvents: 'none' }}
@@ -41,13 +47,19 @@ export default function OptionsSideBar() {
             size="lg"
             p={0}
           >
-            {scenarios.length}
+            {stages.length}
           </Badge>
         </Group>
         <ActionIcon
           variant="outline"
           color="indigo.8"
-          onClick={() => addScenario({ id: nanoid(6), name: `SCENARIO_${scenarios.length + 1}` })}
+          onClick={() =>
+            addStage({
+              id: nanoid(8),
+              userAmount: Math.floor(Math.random() * 100),
+              duration: formatDuration(randomDuration())
+            })
+          }
           size={22}
           style={{ marginLeft: 'auto' }}
         >
@@ -55,15 +67,20 @@ export default function OptionsSideBar() {
         </ActionIcon>
       </Group>
       <Divider />
-      <ScenarioOptions scenarios={scenarios} />
-      <Button.Group>
-        <Button fullWidth variant="default">
-          New
-        </Button>
-        <Button fullWidth variant="default">
-          Import
-        </Button>
-      </Button.Group>
+      <StageDragDrop />
+      <Button
+        color="teal"
+        onClick={() => {
+          addStage({
+            id: nanoid(8),
+            userAmount: Math.floor(Math.random() * 100),
+            duration: formatDuration(randomDuration())
+          });
+        }}
+        variant="outline"
+      >
+        New
+      </Button>
     </Paper>
   );
 }

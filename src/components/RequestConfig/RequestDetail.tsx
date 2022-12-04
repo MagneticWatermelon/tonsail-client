@@ -2,7 +2,7 @@ import { Tabs } from '@mantine/core';
 
 export default function RequestDetails() {
   return (
-    <Tabs style={{ flexGrow: '1' }} color="indigo" defaultValue="headers">
+    <Tabs style={{ flexGrow: '1', padding: "12px" }} color="indigo" defaultValue="headers">
       <Tabs.List>
         <Tabs.Tab value="headers">Headers</Tabs.Tab>
         <Tabs.Tab value="params">Query Params</Tabs.Tab>

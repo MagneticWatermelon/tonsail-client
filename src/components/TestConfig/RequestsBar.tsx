@@ -1,4 +1,13 @@
-import { ActionIcon, Badge, Button, Center, Divider, Group, Paper, Text, useMantineColorScheme } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Divider,
+  Group,
+  Paper,
+  Text,
+  useMantineColorScheme
+} from '@mantine/core';
 import { IconPlus } from '@tabler/icons';
 import { nanoid } from 'nanoid';
 import { useRequestActions, useRequests } from '../../stores/RequestsStore';
@@ -24,7 +33,7 @@ function getRandomVerb() {
   }
 }
 
-export default function OptionsDetail() {
+export default function RequestsBar() {
   const requests = useRequests();
   const { addRequest } = useRequestActions();
   const { colorScheme } = useMantineColorScheme();
@@ -36,7 +45,8 @@ export default function OptionsDetail() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)'
+        height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
+        width: '240px'
       }}
     >
       <Group p="sm">
@@ -57,7 +67,7 @@ export default function OptionsDetail() {
         <ActionIcon
           variant="outline"
           color="indigo.8"
-          onClick={() => addRequest({ id: nanoid(6), method: "GET", url:"" })}
+          onClick={() => addRequest({ id: nanoid(8), method: 'GET', url: '' })}
           size={22}
           style={{ marginLeft: 'auto' }}
         >
@@ -67,23 +77,23 @@ export default function OptionsDetail() {
       <Divider />
       <OptionsDnD />
       <Button.Group>
-        <Button fullWidth variant="default">
+        <Button color="indigo" fullWidth variant="outline">
           Group
         </Button>
         <Button
+          color="teal"
           onClick={() => {
             addRequest({
-              id: nanoid(6),
+              id: nanoid(8),
               method: getRandomVerb(),
               url: 'https://test.k6.io/contacts.php'
             });
           }}
-          fullWidth
-          variant="default"
+          variant="outline"
         >
           Request
         </Button>
-        <Button fullWidth variant="default">
+        <Button color="indigo" variant="outline">
           Sleep
         </Button>
       </Button.Group>

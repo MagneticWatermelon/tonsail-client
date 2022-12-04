@@ -1,53 +1,58 @@
-import { Flex, ScrollArea, Stack, Tabs, Text } from '@mantine/core';
-import { useState } from 'react';
-import { Scenario } from '../../stores/ScenariosStore';
-import OptionsMenu from './OptionsMenu';
+import { Divider, Paper, Stack, Text, TextInput, useMantineTheme } from '@mantine/core';
+import InputTooltip from '../common/InputTooltip';
+import StageChart from '../StageConfig/StageChart';
 
-type ScenarioOptionsProps = {
-  scenarios: Scenario[];
-};
-
-export default function ScenarioOptions({ scenarios }: ScenarioOptionsProps) {
-  const [activeTab, setActiveTab] = useState<string | null>('0');
-
+export default function ScenarioOptions() {
+  const theme = useMantineTheme();
   return (
-    <ScrollArea.Autosize
-      maxHeight="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
-      style={{ flexGrow: 1 }}
-      scrollbarSize={8}
-      scrollHideDelay={100}
+    <Paper
+      shadow="xs"
+      style={{
+        display: 'flex',
+        flexGrow: '1',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
+        minWidth: '0'
+      }}
     >
-      <Flex
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap'
-        }}
-      >
-        <Tabs
-          value={activeTab}
-          onTabChange={setActiveTab}
-          orientation="vertical"
-          color="indigo.8"
-          placement="right"
-          styles={{ tabsList: { flexGrow: 1 } }}
-        >
-          <Tabs.List>
-            {scenarios.map((scenario) => {
-              return (
-                <Tabs.Tab key={scenario.id} my={5} value={scenario.id}>
-                  <Text>{scenario.name}</Text>
-                </Tabs.Tab>
-              );
-            })}
-          </Tabs.List>
-        </Tabs>
-        <Stack spacing={0} ml="auto">
-          {scenarios.map((s, i) => {
-            return <OptionsMenu scenario={s} key={i} />;
-          })}
-        </Stack>
-      </Flex>
-    </ScrollArea.Autosize>
+      <Stack p="sm">
+        <Divider label="General" labelProps={{ fz: 'lg', tt: 'uppercase', fw: 500 }} />
+        <TextInput label={<Text>Name</Text>} radius="xs" size="md" placeholder="Unnamed Scenario" />
+        <TextInput
+          label={
+            <InputTooltip
+              textLabel="Timeout"
+              color={theme.colorScheme === 'dark' ? 'dark.4' : 'blue.8'}
+              label={
+                <Stack>
+                  <Text fz="xs">
+                    Time to wait for finishing execution before stopping forcefully.{' '}
+                  </Text>
+                  <Text fz="xs">Example: 1hour 30m 15sec</Text>
+                  <Text fz="xs">
+                    Supported suffixes: seconds, second, sec, s, minutes, minute, min, m,
+                    hours,hour, hr, h, days, day, d
+                  </Text>
+                </Stack>
+              }
+              multiline
+              width={250}
+              transition="fade"
+              transitionDuration={200}
+            >
+              {' '}
+            </InputTooltip>
+          }
+          radius="xs"
+          size="md"
+          placeholder="30s"
+        />
+      </Stack>
+      <Stack p="sm" style={{ flexGrow: 1 }}>
+        <Divider label="Stages" labelProps={{ fz: 'lg', tt: 'uppercase', fw: 500 }} />
+        <StageChart />
+      </Stack>
+    </Paper>
   );
 }

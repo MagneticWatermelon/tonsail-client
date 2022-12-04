@@ -7,7 +7,7 @@ type OptionsMenuProps = {
   scenario: Scenario;
 };
 
-export default function OptionsMenu({ scenario }: OptionsMenuProps) {
+export default function ScenarioDropdownMenu({ scenario }: OptionsMenuProps) {
   const { cloneScenario, deleteScenario } = useScenarioActions();
 
   return (
@@ -22,7 +22,7 @@ export default function OptionsMenu({ scenario }: OptionsMenuProps) {
         <Menu.Item
           icon={<IconCopy size={14} />}
           onClick={() => {
-            let newId = nanoid(6);
+            let newId = nanoid(8);
             cloneScenario(scenario, newId);
           }}
         >

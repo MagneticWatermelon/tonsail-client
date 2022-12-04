@@ -1,14 +1,12 @@
 import { Flex } from '@mantine/core';
-import RequestInput from '../RequestConfig/RequestInput';
-import OptionsDetail from './OptionsDetail';
-import OptionsSideBar from './OptionsSideBar';
+import { Outlet } from 'react-router-dom';
+import ScenariosBar from './ScenariosBar';
 
 export default function TestConfig() {
   return (
     <Flex justify="flex-start" direction="row" gap={5}>
-      <OptionsSideBar />
-      <OptionsDetail />
-      <RequestInput />
+      <ScenariosBar />
+      <Outlet />
     </Flex>
   );
 }

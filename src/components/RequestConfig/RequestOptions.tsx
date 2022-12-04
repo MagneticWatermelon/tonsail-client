@@ -4,7 +4,7 @@ import RequestDetails from './RequestDetail';
 
 const data = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS', 'PATCH'];
 
-export default function RequestInput() {
+export default function RequestOptions() {
   return (
     <Paper
       shadow="xs"
