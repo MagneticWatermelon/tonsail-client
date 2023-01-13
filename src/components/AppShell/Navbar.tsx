@@ -1,7 +1,6 @@
 import {
   createStyles,
   Navbar,
-  Code,
   Text,
   Group,
   ActionIcon,
