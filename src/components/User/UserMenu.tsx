@@ -1,9 +1,11 @@
 import { Menu, Group, ActionIcon } from '@mantine/core';
 import { IconLogout, IconSettings, IconSwitchHorizontal, IconDotsVertical } from '@tabler/icons';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../util/AuthProvider';
 
 export function UserMenu() {
-  const { onLogout } = useAuth();
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   return (
     <Group position="center">
@@ -19,7 +21,13 @@ export function UserMenu() {
           <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
             Change account
           </Menu.Item>
-          <Menu.Item color="red" icon={<IconLogout size={14} stroke={1.5} onClick={onLogout} />}>
+          <Menu.Item
+            color="red"
+            icon={<IconLogout size={14} stroke={1.5} />}
+            onClick={() => {
+              auth.signout(() => navigate('/'));
+            }}
+          >
             Logout
           </Menu.Item>
         </Menu.Dropdown>
