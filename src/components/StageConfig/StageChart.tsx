@@ -4,7 +4,6 @@ import {
   AnimatedAxis,
   AnimatedGrid,
   buildChartTheme,
-  darkTheme,
   Tooltip,
   XYChart,
   XYChartTheme
@@ -12,13 +11,27 @@ import {
 import { Stage, useStages } from '../../stores/StagesStore';
 import { formatDuration, parseDuration } from '../../util/timeFormat';
 
-const customTheme = buildChartTheme({
+const lightTheme = buildChartTheme({
   backgroundColor: '#A5D8FF',
-  colors: ['#228BE6', '#6a097d', '#d6e0f0'],
+  colors: ['#228BE6'],
   gridColor: '#336d88',
   gridColorDark: '#1d1b38',
   svgLabelBig: { fill: '#1d1b38' },
   tickLength: 4
+});
+
+const darkTheme = buildChartTheme({
+  backgroundColor: '#222',
+  colors: ['#228BE6'],
+  tickLength: 4,
+  svgLabelSmall: {
+    fill: '#e9ecef'
+  },
+  svgLabelBig: {
+    fill: '#f8f9fa'
+  },
+  gridColor: '#e9ecef',
+  gridColorDark: '#f1f3f5'
 });
 
 const accessors = {
@@ -32,7 +45,7 @@ function chartTheme(scheme: ColorScheme): XYChartTheme {
   if (scheme === 'dark') {
     return darkTheme;
   } else {
-    return customTheme;
+    return lightTheme;
   }
 }
 
@@ -80,7 +93,7 @@ export default function StageChart() {
           // numTicks={5}
           tickFormat={formatDuration}
           strokeWidth={0.5}
-        // hideTicks
+          // hideTicks
         />
         <AnimatedAxis
           animationTrajectory="min"

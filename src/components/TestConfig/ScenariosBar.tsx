@@ -26,8 +26,8 @@ export default function ScenariosBar() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
-        width: "185px",
-        minWidth: "185px"
+        width: '185px',
+        minWidth: '185px'
       }}
     >
       <Group p="sm">
@@ -36,9 +36,9 @@ export default function ScenariosBar() {
             Scenarios
           </Text>
           <Badge
-            sx={{ width: 20, height: 20, pointerEvents: 'none' }}
-            variant="light"
-            color={colorScheme === 'dark' ? 'indigo.3' : 'indigo.8'}
+            sx={{ width: 22, height: 22, pointerEvents: 'none' }}
+            variant="outline"
+            color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
             size="lg"
             p={0}
           >
@@ -47,7 +47,7 @@ export default function ScenariosBar() {
         </Group>
         <ActionIcon
           variant="outline"
-          color="indigo.8"
+          color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
           onClick={() => addScenario({ id: nanoid(8), name: `SCENARIO_${scenarios.length + 1}` })}
           size={22}
           style={{ marginLeft: 'auto' }}
@@ -58,10 +58,10 @@ export default function ScenariosBar() {
       <Divider />
       <ScenarioAccordion scenarios={scenarios} />
       <Button.Group>
-        <Button color="teal" fullWidth variant="outline">
+        <Button color="green.7" fullWidth variant="outline">
           New
         </Button>
-        <Button color="indigo" fullWidth variant="outline">
+        <Button color="blue.7" fullWidth variant="outline">
           Import
         </Button>
       </Button.Group>

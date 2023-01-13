@@ -49,7 +49,6 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
           if (!value) {
             return;
           }
-          console.log(matches);
           setScenario(value);
           navigate(`scenario/${value}`);
         }}
@@ -73,23 +72,33 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                 <NavLink
                   styles={(theme) => ({
                     root: {
-                      ':hover': {
-                        color: theme.colors.blue[6]
+                      '&:hover': {
+                        color: theme.colors.blue[6],
+                        backgroundColor: '#3897e933'
+                      },
+                      '&[data-active]': {
+                        color: theme.colors.blue[0],
+                        backgroundColor: theme.fn.darken(theme.colors.blue[6], 0.1)
                       }
                     }
                   })}
                   label="Options"
                   icon={<IconSettings size={18} stroke={1.5} />}
                   component={Link}
-                  variant="subtle"
+                  variant="filled"
                   active={matches !== null}
                   to={`scenario/${scenario}/options`}
                 />
                 <NavLink
                   styles={(theme) => ({
                     root: {
-                      ':hover': {
-                        color: theme.colors.blue[6]
+                      '&:hover': {
+                        color: theme.colors.blue[6],
+                        backgroundColor: '#3897e933'
+                      },
+                      '&[data-active]': {
+                        color: theme.colors.blue[0],
+                        backgroundColor: theme.fn.darken(theme.colors.blue[6], 0.1)
                       }
                     }
                   })}
@@ -97,7 +106,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                   icon={<IconChartArrows size={18} stroke={1.5} />}
                   component={Link}
                   active={matches === null}
-                  variant="subtle"
+                  variant="filled"
                   to={`scenario/${scenario}`}
                 />
               </Accordion.Panel>

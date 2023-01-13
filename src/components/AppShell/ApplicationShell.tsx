@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import {
-  IconSun,
-  IconMoonStars,
-  IconHome2,
-  IconSettingsAutomation,
-  IconSettings
-} from '@tabler/icons';
+import { IconSun, IconMoonStars } from '@tabler/icons';
 import {
   AppShell,
-  Navbar,
   Header,
-  NavLink,
   Text,
   MediaQuery,
   Burger,
@@ -18,7 +10,7 @@ import {
   ActionIcon,
   useMantineColorScheme
 } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { NavbarSearch } from './Navbar';
 
 type ShellProps = {
   children: React.ReactNode;
@@ -38,55 +30,7 @@ export default function ApplicationShell({ children }: ShellProps) {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 200 }}>
-          <Navbar.Section>
-            <NavLink
-              styles={(theme) => ({
-                root: {
-                  ':hover': {
-                    color: theme.colors.blue[6]
-                  }
-                }
-              })}
-              component={Link}
-              label="Projects"
-              to="projects/sdfkdskdf"
-              icon={<IconHome2 size={18} stroke={1.5} />}
-            />
-          </Navbar.Section>
-          <Navbar.Section>
-            <NavLink
-              styles={(theme) => ({
-                root: {
-                  ':hover': {
-                    color: theme.colors.blue[6]
-                  }
-                }
-              })}
-              component={Link}
-              label="Tests"
-              to="tests/adfjsdf/config"
-              icon={<IconSettingsAutomation size={18} stroke={1.5} />}
-            />
-          </Navbar.Section>
-          <Navbar.Section>
-            <NavLink
-              styles={(theme) => ({
-                root: {
-                  ':hover': {
-                    color: theme.colors.blue[6]
-                  }
-                }
-              })}
-              component={Link}
-              label="Settings"
-              to="settings/sdkfdjfnsd"
-              icon={<IconSettings size={18} stroke={1.5} />}
-            />
-          </Navbar.Section>
-        </Navbar>
-      }
+      navbar={<NavbarSearch />}
       header={
         <Header height={{ base: 50, md: 70 }} p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>

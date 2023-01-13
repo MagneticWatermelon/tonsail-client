@@ -46,7 +46,7 @@ export default function RequestsBar() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
-        width: '240px'
+        width: '250px'
       }}
     >
       <Group p="sm">
@@ -55,9 +55,9 @@ export default function RequestsBar() {
             Requests
           </Text>
           <Badge
-            sx={{ width: 20, height: 20, pointerEvents: 'none' }}
-            variant="light"
-            color={colorScheme === 'dark' ? 'indigo.3' : 'indigo.8'}
+            sx={{ width: 22, height: 22, pointerEvents: 'none' }}
+            variant="outline"
+            color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
             size="lg"
             p={0}
           >
@@ -66,7 +66,7 @@ export default function RequestsBar() {
         </Group>
         <ActionIcon
           variant="outline"
-          color="indigo.8"
+          color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
           onClick={() => addRequest({ id: nanoid(8), method: 'GET', url: '' })}
           size={22}
           style={{ marginLeft: 'auto' }}
@@ -77,11 +77,12 @@ export default function RequestsBar() {
       <Divider />
       <OptionsDnD />
       <Button.Group>
-        <Button color="indigo" fullWidth variant="outline">
+        <Button color="blue.7" variant="outline">
           Group
         </Button>
         <Button
-          color="teal"
+          color="green.7"
+          fullWidth
           onClick={() => {
             addRequest({
               id: nanoid(8),
@@ -93,7 +94,7 @@ export default function RequestsBar() {
         >
           Request
         </Button>
-        <Button color="indigo" variant="outline">
+        <Button color="blue.7" variant="outline">
           Sleep
         </Button>
       </Button.Group>

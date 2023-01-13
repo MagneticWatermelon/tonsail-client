@@ -22,9 +22,17 @@ const router = createBrowserRouter([
           {
             path: 'scenario/:scenarioId/options',
             element: <StageConfig />
-          },
+          }
         ]
-      }
+      },
+      {
+        path: 'projects/',
+        element: <div />
+      },
+      {
+        path: 'settings/',
+        element: <div />
+      },
     ]
   }
 ]);
