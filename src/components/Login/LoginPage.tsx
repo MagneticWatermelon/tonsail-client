@@ -9,6 +9,7 @@ import {
   Text,
   Anchor
 } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../util/AuthProvider';
 
@@ -66,13 +67,20 @@ export function LoginPage() {
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || '/';
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: ''
+    },
 
-  function handleSubmit(event: any) {
-    event.preventDefault();
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
+    }
+  });
 
-    // let formData = new FormData(event.currentTarget);
-    // let username = formData.get('username') as string;
-    auth.signin('fgtyhtyh', () => {
+  function handleSubmit(data: { email: string; password: string }) {
+    console.log(data);
+    auth.signin({ email: data.email, password: data.password }, () => {
       navigate(from, { replace: true });
     });
   }
@@ -81,15 +89,25 @@ export function LoginPage() {
     <div className={classes.loginRoot}>
       <div className={classes.wrapper}>
         <Paper className={classes.paper} radius={0} p={30}>
-          <div className={classes.form}>
+          <form className={classes.form} onClick={form.onSubmit((values) => handleSubmit(values))}>
             <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
               Welcome back to Mantine!
             </Title>
 
-            <TextInput label="Email address" placeholder="hello@gmail.com" size="md" />
-            <PasswordInput label="Password" placeholder="Your password" mt="md" size="md" />
-            <Checkbox label="Keep me logged in" mt="xl" size="md" />
-            <Button fullWidth mt="xl" size="md" radius="sm" onClick={handleSubmit}>
+            <TextInput
+              label="Email address"
+              placeholder="hello@gmail.com"
+              size="md"
+              {...form.getInputProps('email')}
+            />
+            <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              mt="md"
+              size="md"
+              {...form.getInputProps('password')}
+            />
+            <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
               Sign In
             </Button>
 
@@ -99,7 +117,7 @@ export function LoginPage() {
                 Register
               </Anchor>
             </Text>
-          </div>
+          </form>
         </Paper>
       </div>
     </div>

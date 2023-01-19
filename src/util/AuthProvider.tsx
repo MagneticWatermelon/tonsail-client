@@ -1,21 +1,38 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-const fakeAuthProvider = {
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const asyncAuthProvider = {
   isAuthenticated: false,
-  signin(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = true;
-    setTimeout(callback, 100); // fake async
+  async signin(form: FormData) {
+    try {
+      const resp = await fetch('http://127.0.0.1:8000/login', {
+        method: 'POST',
+        credentials: 'include',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          email: form.email,
+          password: form.password
+        })
+      });
+      return resp;
+    } catch (error) {
+      console.log('Error occured', error);
+    }
   },
-  signout(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = false;
-    setTimeout(callback, 100);
-  },
+  async signout() {}
 };
 
 interface AuthContextType {
   user: any;
-  signin: (user: string, callback: VoidFunction) => void;
-  signout: (callback: VoidFunction) => void;
+  signin: (data: FormData, callback: VoidFunction) => Promise<void>;
+  signout: (callback: VoidFunction) => Promise<void>;
 }
 
 let AuthContext = createContext<AuthContextType>(null!);
@@ -23,18 +40,21 @@ let AuthContext = createContext<AuthContextType>(null!);
 function AuthProvider({ children }: { children: ReactNode }) {
   let [user, setUser] = useState<any>(null);
 
-  let signin = (newUser: string, callback: VoidFunction) => {
-    return fakeAuthProvider.signin(() => {
-      setUser(newUser);
+  let signin = async (data: FormData, callback: VoidFunction) => {
+    let resp = await asyncAuthProvider.signin(data);
+    console.log('Got response', resp);
+    if (resp?.status == 0) {
+      setUser(data);
       callback();
-    });
+    }
   };
 
-  let signout = (callback: VoidFunction) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null);
-      callback();
-    });
+  let signout = async (callback: VoidFunction) => {
+    let resp = await asyncAuthProvider.signout();
+    // if (resp?.ok) {
+    setUser(null);
+    callback();
+    // }
   };
 
   let value = { user, signin, signout };
