@@ -1,21 +1,27 @@
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
-import { useScrollLock } from '@mantine/hooks';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useColorScheme, useScrollLock } from '@mantine/hooks';
 import { SpotlightProvider } from '@mantine/spotlight';
 import { IconSearch } from '@tabler/icons';
-import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/router';
 import { SpotlightActions } from './stores/SpotlightActions';
 import { AuthProvider } from './util/AuthProvider';
 
 const queryClient = new QueryClient();
+
 export default function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
-  const [_scrollock] = useScrollLock(true);
+  const preferredColorScheme = useColorScheme('dark');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(preferredColorScheme);
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [_scrollock] = useScrollLock(true);
+
+  useEffect(() => {
+    setColorScheme(preferredColorScheme);
+  }, [preferredColorScheme]);
 
   return (
     <QueryClientProvider client={queryClient}>
