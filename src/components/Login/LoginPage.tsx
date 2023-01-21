@@ -73,7 +73,8 @@ export function LoginPage() {
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password: (value) => value.length > 8 ? null : 'Password must have at least 8 characters',
     }
   });
 
@@ -88,27 +89,29 @@ export function LoginPage() {
     <div className={classes.loginRoot}>
       <div className={classes.wrapper}>
         <Paper className={classes.paper} radius={0} p={30}>
-          <form className={classes.form} onClick={form.onSubmit((values) => handleSubmit(values))}>
+          <div className={classes.form}>
             <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
               Welcome back to Mantine!
             </Title>
 
-            <TextInput
-              label="Email address"
-              placeholder="hello@gmail.com"
-              size="md"
-              {...form.getInputProps('email')}
-            />
-            <PasswordInput
-              label="Password"
-              placeholder="Your password"
-              mt="md"
-              size="md"
-              {...form.getInputProps('password')}
-            />
-            <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
-              Sign In
-            </Button>
+            <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+              <TextInput
+                label="Email address"
+                placeholder="hello@gmail.com"
+                size="md"
+                {...form.getInputProps('email')}
+              />
+              <PasswordInput
+                label="Password"
+                placeholder="Your password"
+                mt="md"
+                size="md"
+                {...form.getInputProps('password')}
+              />
+              <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
+                Sign In
+              </Button>
+            </form>
 
             <Text align="center" mt="md">
               Don&apos;t have an account?{' '}
@@ -116,7 +119,7 @@ export function LoginPage() {
                 Register
               </Anchor>
             </Text>
-          </form>
+          </div>
         </Paper>
       </div>
     </div>
