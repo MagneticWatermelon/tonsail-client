@@ -4,7 +4,7 @@ import { Organization } from '../../types/Organization';
 
 async function getAllOrganizations(): Promise<Organization[]> {
   const res = await client.get('/organizations');
-  return res.data;
+  return res.json();
 }
 
 export function useOrganizations() {
