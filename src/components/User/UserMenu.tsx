@@ -6,6 +6,7 @@ import { useAuth } from '../../util/AuthProvider';
 export function UserMenu() {
   const auth = useAuth();
   const navigate = useNavigate();
+  // const userQuery = useUser();
 
   return (
     <Group position="center">
@@ -17,7 +18,14 @@ export function UserMenu() {
         </Menu.Target>
         <Menu.Dropdown>
           <Menu.Label>Settings</Menu.Label>
-          <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              navigate(`/account/${auth.user.id}`);
+            }}
+            icon={<IconSettings size={14} stroke={1.5} />}
+          >
+            Account settings
+          </Menu.Item>
           <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
             Change account
           </Menu.Item>

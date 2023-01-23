@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Credentials, useLogin } from '../../lib/auth';
 import { useAuth } from '../../util/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
@@ -41,31 +42,24 @@ const useStyles = createStyles((theme) => ({
 
   paper: {
     height: 'inherit',
-    borderRight: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-    }`
+    borderRight: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+      }`
   },
 
   title: {
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`
-  },
-
-  logo: {
-    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
-    width: 120,
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto'
   }
 }));
 
 export function LoginPage() {
   const { classes } = useStyles();
   const auth = useAuth();
+  const login = useLogin();
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || '/';
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -74,12 +68,13 @@ export function LoginPage() {
 
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: (value) => value.length > 8 ? null : 'Password must have at least 8 characters',
+      password: (value) => (value.length > 8 ? null : 'Password must have at least 8 characters')
     }
   });
 
   function handleSubmit(data: { email: string; password: string }) {
-    console.log(data);
+    // login.mutate(data);
+    // navigate(from, { replace: true });
     auth.signin({ email: data.email, password: data.password }, () => {
       navigate(from, { replace: true });
     });
