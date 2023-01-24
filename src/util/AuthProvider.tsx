@@ -10,18 +10,6 @@ const asyncAuthProvider = {
   isAuthenticated: false,
   async signin(form: FormData) {
     try {
-      // const resp = await fetch('http://127.0.0.1:8000/login', {
-      //   method: 'POST',
-      //   credentials: 'include',
-      //   mode: 'no-cors',
-      //   headers: {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   },
-      //   body: new URLSearchParams({
-      //     email: form.email,
-      //     password: form.password
-      //   })
-      // });
       const resp = await client.post('login', {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
