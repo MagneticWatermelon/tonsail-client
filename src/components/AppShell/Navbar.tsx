@@ -1,7 +1,6 @@
 import { createStyles, Navbar, Text, Group, NavLink, Button, Kbd } from '@mantine/core';
 import { openSpotlight } from '@mantine/spotlight';
 import { IconSearch, IconHome2, IconSettingsAutomation, IconSettings } from '@tabler/icons';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../util/AuthProvider';
 import { UserSection } from '../User/UserButton';

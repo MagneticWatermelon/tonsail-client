@@ -1,9 +1,9 @@
-import { Paper, createStyles, TextInput, PasswordInput, Button, Title } from '@mantine/core';
+import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { client } from '../../lib/apiClient';
-import { User } from '../../types/User';
 import { useAuth } from '../../util/AuthProvider';
+import { PasswordStrength } from '../User/PasswordInputWithStrength';
 
 const useStyles = createStyles((theme) => ({
   registerRoot: {
@@ -102,13 +102,7 @@ export function RegisterPage() {
                 size="md"
                 {...form.getInputProps('email')}
               />
-              <PasswordInput
-                label="Password"
-                placeholder="Your password"
-                mt="md"
-                size="md"
-                {...form.getInputProps('password')}
-              />
+              <PasswordStrength form={form.getInputProps("password")} />
               <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
                 Sign Up
               </Button>

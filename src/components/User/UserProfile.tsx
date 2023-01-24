@@ -11,7 +11,9 @@ import {
   Button,
   Center,
   useMantineColorScheme,
-  Avatar
+  Group,
+  Modal,
+  PasswordInput
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconCheck, IconCopy } from '@tabler/icons';
@@ -19,11 +21,21 @@ import Avvvatars from 'avvvatars-react';
 import { useEffect, useState } from 'react';
 import { client } from '../../lib/apiClient';
 import { useAuth } from '../../util/AuthProvider';
+import { PasswordStrength } from './PasswordInputWithStrength';
 
 export default function UserProfile() {
-  const { user, updateUser } = useAuth();
   const theme = useMantineColorScheme();
+  const { user, updateUser } = useAuth();
   const [changed, setChanged] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
+
+  const passwordForm = useForm({
+    initialValues: { old_password: '', old_password_again: '', new_password: '' },
+    transformValues: (values) => ({
+      password: values.new_password
+    })
+  });
+
   const form = useForm({
     initialValues: { organization_id: user.organizationId, name: user.name, email: user.email },
     transformValues: (values) => ({
@@ -41,6 +53,21 @@ export default function UserProfile() {
         body: new URLSearchParams({
           name: data.name,
           email: data.email
+        })
+      })
+      .json();
+
+    updateUser(updatedUser);
+  }
+
+  async function handlePasswordSubmit(data: { password: string }) {
+    let updatedUser = await client
+      .put(`users/${user.id}`, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          password: data.password
         })
       })
       .json();
@@ -110,19 +137,65 @@ export default function UserProfile() {
               placeholder="hello@email.com"
             />
             <Center>
-              <Button
-                type="submit"
-                variant="outline"
-                color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
-                size="lg"
-                disabled={changed}
-              >
-                Save Profile
-              </Button>
+              <Group>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+                  size="lg"
+                  disabled={changed}
+                >
+                  Save Profile
+                </Button>
+                <Button
+                  variant="outline"
+                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'red'}
+                  onClick={() => setModalOpened(true)}
+                  size="lg"
+                >
+                  Update Password
+                </Button>
+              </Group>
             </Center>
           </Stack>
         </form>
       </Paper>
+      <Modal
+        opened={modalOpened}
+        onClose={() => {
+          setModalOpened(false);
+        }}
+        title="Introduce yourself!"
+        centered
+      >
+        <form onSubmit={passwordForm.onSubmit((values) => handlePasswordSubmit(values))}>
+          <Stack>
+            <PasswordInput
+              label="Old Password"
+              placeholder="Current password"
+              mt="md"
+              size="md"
+              {...passwordForm.getInputProps('old_password')}
+            />
+            <PasswordInput
+              label="Old Password Again"
+              placeholder="Current password again"
+              mt="md"
+              size="md"
+              {...passwordForm.getInputProps('old_password_again')}
+            />
+            <PasswordStrength form={passwordForm.getInputProps('new_password')} />
+            <Button
+              type="submit"
+              variant="outline"
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              size="lg"
+            >
+              Save Password
+            </Button>
+          </Stack>
+        </form>
+      </Modal>
     </Center>
   );
 }

@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { client } from '../lib/apiClient';
-import { User } from '../types/User';
 
 interface FormData {
   email: string;
