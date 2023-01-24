@@ -1,4 +1,5 @@
 import { Group, Avatar, Text, createStyles } from '@mantine/core';
+import Avvvatars from 'avvvatars-react';
 import { UserMenu } from './UserMenu';
 
 const useStyles = createStyles((theme) => ({
@@ -23,7 +24,7 @@ export function UserSection({ image, name, email }: UserSectionProps) {
   return (
     <div className={classes.user}>
       <Group spacing="xs">
-        <Avatar src={image} radius="xl" />
+        <Avatar component={Avvvatars} value={name} radius="xl" />
         <div style={{ flex: 1 }}>
           <div style={{ width: 80 }}>
             <Text

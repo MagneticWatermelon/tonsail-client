@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { client } from '../lib/apiClient';
+import { User } from '../types/User';
 
 interface FormData {
   email: string;
@@ -29,6 +30,7 @@ const asyncAuthProvider = {
 
 interface AuthContextType {
   user: any;
+  updateUser: (data: any) => void;
   signin: (data: FormData, callback: VoidFunction) => Promise<void>;
   signout: (callback: VoidFunction) => Promise<void>;
 }
@@ -46,6 +48,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  let updateUser = (data: any) => {
+    setUser(data);
+  };
+
   let signout = async (callback: VoidFunction) => {
     // if (resp?.ok) {
     setUser(null);
@@ -53,7 +59,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     // }
   };
 
-  let value = { user, signin, signout };
+  let value = { user, updateUser, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

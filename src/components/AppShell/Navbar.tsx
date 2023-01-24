@@ -1,6 +1,7 @@
 import { createStyles, Navbar, Text, Group, NavLink, Button, Kbd } from '@mantine/core';
 import { openSpotlight } from '@mantine/spotlight';
 import { IconSearch, IconHome2, IconSettingsAutomation, IconSettings } from '@tabler/icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../util/AuthProvider';
 import { UserSection } from '../User/UserButton';
@@ -44,20 +45,24 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export function NavbarSearch() {
+interface NavBarProps {
+  opened: boolean;
+}
+
+export function NavbarSearch({ opened }: NavBarProps) {
   const { classes } = useStyles();
   const { user } = useAuth();
 
   return (
     <Navbar
       hiddenBreakpoint="sm"
-      hidden={false}
+      hidden={!opened}
       width={{ sm: 200, lg: 200 }}
       p="md"
       className={classes.navbar}
     >
       <Navbar.Section className={classes.section}>
-        <UserSection image="" name="Oguzhan Ipek" email="fgtyhtyh@hotmail.com" />
+        <UserSection image="" name={user.name} email={user.email} />
       </Navbar.Section>
 
       <Navbar.Section className={classes.section}>
