@@ -25,10 +25,8 @@
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
-    "react-query-auth": "^2.0.0",
     "react-router-dom": "^6.4.4",
     "react-spring": "^9.5.5",
-    "type-fest": "^3.5.3",
     "zustand": "^4.1.4"
   },
   "devDependencies": {
