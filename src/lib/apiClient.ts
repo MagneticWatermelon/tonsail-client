@@ -4,5 +4,5 @@ import { BASE_API_URL } from '../config';
 export const client = ky.create({
   prefixUrl: BASE_API_URL,
   mode: 'cors',
-  // credentials: 'include'
+  credentials: 'include'
 });
