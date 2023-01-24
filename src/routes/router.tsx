@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { RegisterPage } from '../components/Login/RegisterPage';
 import OrganizationProfile from '../components/Organization/OrganizationProfile';
 import RequestConfig from '../components/RequestConfig/RequestConfig';
 import StageConfig from '../components/StageConfig/StageConfig';
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
         element: <div />
       }
     ]
+  },
+  {
+    path: 'register/',
+    element: <RegisterPage />
   }
 ]);
 

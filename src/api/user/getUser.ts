@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { client } from '../../lib/axios';
+import { client } from '../../lib/apiClient';
 import { User } from '../../types/User';
 
 async function getUser(id: String): Promise<User> {

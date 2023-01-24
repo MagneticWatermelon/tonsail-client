@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { client } from '../../lib/axios';
+import { client } from '../../lib/apiClient';
 import { Organization } from '../../types/Organization';
 
 async function getOrganization(id: string): Promise<Organization> {

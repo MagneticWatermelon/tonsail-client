@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-import { client } from '../lib/axios';
+import { client } from '../lib/apiClient';
 
 interface FormData {
   email: string;

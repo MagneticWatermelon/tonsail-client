@@ -1,19 +1,12 @@
-import {
-  Paper,
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Button,
-  Title,
-  Text,
-  Anchor
-} from '@mantine/core';
+import { Paper, createStyles, TextInput, PasswordInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { client } from '../../lib/apiClient';
+import { User } from '../../types/User';
 import { useAuth } from '../../util/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
-  loginRoot: {
+  registerRoot: {
     width: '100vw',
     height: '100vh',
     backgroundSize: 'cover',
@@ -51,7 +44,7 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export function LoginPage() {
+export function RegisterPage() {
   const { classes } = useStyles();
   const auth = useAuth();
   let navigate = useNavigate();
@@ -60,35 +53,52 @@ export function LoginPage() {
 
   const form = useForm({
     initialValues: {
+      name: '',
       email: '',
       password: ''
     },
 
     validate: {
+      name: (value) => (value.length > 0 ? null : 'Name can not be empty'),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: (value) => (value.length > 8 ? null : 'Password must have at least 8 characters')
     }
   });
 
-  function handleSubmit(data: { email: string; password: string }) {
+  async function handleSubmit(data: { name: string; email: string; password: string }) {
+    await client.post('register', {
+      body: new URLSearchParams({
+        name: data.name,
+        email: data.email,
+        password: data.password
+      })
+    });
+
     auth.signin({ email: data.email, password: data.password }, () => {
       navigate(from, { replace: true });
     });
   }
 
   return (
-    <div className={classes.loginRoot}>
+    <div className={classes.registerRoot}>
       <div className={classes.wrapper}>
         <Paper className={classes.paper} radius={0} p={30}>
           <div className={classes.form}>
-            <Title order={2} className={classes.title} align="center" mt="md" mb={50}>
-              Welcome to Tonsail!
+            <Title order={2} className={classes.title} align="center" mt="md" mb="xl">
+              Get started
             </Title>
 
             <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
               <TextInput
+                label="Name"
+                placeholder="Graham Bell"
+                size="md"
+                {...form.getInputProps('name')}
+              />
+              <TextInput
                 label="Email address"
                 placeholder="hello@email.com"
+                mt="md"
                 size="md"
                 {...form.getInputProps('email')}
               />
@@ -100,16 +110,9 @@ export function LoginPage() {
                 {...form.getInputProps('password')}
               />
               <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
-                Sign In
+                Sign Up
               </Button>
             </form>
-
-            <Text align="center" mt="md">
-              Don&apos;t have an account?{' '}
-              <Anchor component={Link} weight={700} to="register/">
-                Register
-              </Anchor>
-            </Text>
           </div>
         </Paper>
       </div>
