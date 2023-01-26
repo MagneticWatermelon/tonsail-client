@@ -1,3 +1,5 @@
+import { showNotification } from '@mantine/notifications';
+import { IconX } from '@tabler/icons';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { client } from '../lib/apiClient';
 
@@ -21,7 +23,13 @@ const asyncAuthProvider = {
       });
       return resp.json();
     } catch (error) {
-      console.log('Error occured', error);
+      showNotification({
+        title: 'Login failed',
+        message: `${error}`,
+        autoClose: 5000,
+        color: "red",
+        icon: <IconX />
+      });
     }
   },
   async signout() { }

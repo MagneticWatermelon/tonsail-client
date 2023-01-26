@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useTitleActions } from '../../stores/AppTitleStore';
 import { useAuth } from '../../util/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
@@ -53,6 +54,8 @@ const useStyles = createStyles((theme) => ({
 
 export function LoginPage() {
   const { classes } = useStyles();
+  const { setTitle } = useTitleActions();
+  setTitle('Login');
   const auth = useAuth();
   let navigate = useNavigate();
   let location = useLocation();

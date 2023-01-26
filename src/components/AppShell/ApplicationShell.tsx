@@ -8,9 +8,11 @@ import {
   Burger,
   useMantineTheme,
   ActionIcon,
-  useMantineColorScheme
+  useMantineColorScheme,
+  Title
 } from '@mantine/core';
 import { NavbarSearch } from './Navbar';
+import { useTitle } from '../../stores/AppTitleStore';
 
 type ShellProps = {
   children: React.ReactNode;
@@ -18,6 +20,7 @@ type ShellProps = {
 
 export default function ApplicationShell({ children }: ShellProps) {
   const theme = useMantineTheme();
+  const title = useTitle();
   const { toggleColorScheme } = useMantineColorScheme();
   const [opened, setOpened] = useState(false);
 
@@ -28,6 +31,7 @@ export default function ApplicationShell({ children }: ShellProps) {
           background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
         }
       }}
+      layout="alt"
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={<NavbarSearch opened={opened} />}
@@ -43,7 +47,7 @@ export default function ApplicationShell({ children }: ShellProps) {
                 mr="xl"
               />
             </MediaQuery>
-            <Text>Application header</Text>
+            <Title order={4} weight={700}>{title}</Title>
             <ActionIcon
               variant="outline"
               color={theme.colorScheme === 'dark' ? 'yellow' : 'blue.8'}

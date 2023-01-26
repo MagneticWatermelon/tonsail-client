@@ -16,9 +16,10 @@ import {
   PasswordInput
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconCheck, IconCopy } from '@tabler/icons';
+import { showNotification } from '@mantine/notifications';
+import { IconCheck, IconCopy, IconX } from '@tabler/icons';
 import Avvvatars from 'avvvatars-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { client } from '../../lib/apiClient';
 import { useAuth } from '../../util/AuthProvider';
 import { PasswordStrength } from './PasswordInputWithStrength';
@@ -26,7 +27,6 @@ import { PasswordStrength } from './PasswordInputWithStrength';
 export default function UserProfile() {
   const theme = useMantineColorScheme();
   const { user, updateUser } = useAuth();
-  const [changed, setChanged] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
 
   const passwordForm = useForm({
@@ -45,43 +45,73 @@ export default function UserProfile() {
   });
 
   async function handleSubmit(data: { name: string; email: string }) {
-    let updatedUser = await client
-      .put(`users/${user.id}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-          name: data.name,
-          email: data.email
+    try {
+      let updatedUser = await client
+        .put(`users/${user.id}`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            name: data.name,
+            email: data.email
+          })
         })
-      })
-      .json();
+        .json();
 
-    updateUser(updatedUser);
+      updateUser(updatedUser);
+
+      showNotification({
+        title: 'Success',
+        message: `User info updated`,
+        autoClose: 5000,
+        color: 'green',
+        icon: <IconCheck />
+      });
+
+      form.resetDirty();
+    } catch (error) {
+      showNotification({
+        title: 'Update failed',
+        message: `${error}`,
+        autoClose: 5000,
+        color: 'red',
+        icon: <IconX />
+      });
+    }
   }
 
   async function handlePasswordSubmit(data: { password: string }) {
-    let updatedUser = await client
-      .put(`users/${user.id}`, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-          password: data.password
+    try {
+      let updatedUser = await client
+        .put(`users/${user.id}`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            password: data.password
+          })
         })
-      })
-      .json();
+        .json();
 
-    updateUser(updatedUser);
-  }
+      updateUser(updatedUser);
 
-  useEffect(() => {
-    if (form.isDirty()) {
-      setChanged(false);
-    } else {
-      setChanged(true);
+      showNotification({
+        title: 'Success',
+        message: `Password updated`,
+        autoClose: 5000,
+        color: 'green',
+        icon: <IconCheck />
+      });
+    } catch (error) {
+      showNotification({
+        title: 'Update failed',
+        message: `${error}`,
+        autoClose: 5000,
+        color: 'red',
+        icon: <IconX />
+      });
     }
-  }, [form.values]);
+  }
 
   return (
     <Center>
@@ -143,7 +173,7 @@ export default function UserProfile() {
                   variant="outline"
                   color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
                   size="lg"
-                  disabled={changed}
+                  disabled={!form.isDirty()}
                 >
                   Save Profile
                 </Button>
@@ -165,21 +195,23 @@ export default function UserProfile() {
         onClose={() => {
           setModalOpened(false);
         }}
-        title="Introduce yourself!"
+        title={
+          <Text size="xl" weight={700}>
+            Change Password
+          </Text>
+        }
         centered
       >
         <form onSubmit={passwordForm.onSubmit((values) => handlePasswordSubmit(values))}>
           <Stack>
             <PasswordInput
               label="Old Password"
-              placeholder="Current password"
               mt="md"
               size="md"
               {...passwordForm.getInputProps('old_password')}
             />
             <PasswordInput
               label="Old Password Again"
-              placeholder="Current password again"
               mt="md"
               size="md"
               {...passwordForm.getInputProps('old_password_again')}

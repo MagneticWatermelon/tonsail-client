@@ -1,7 +1,35 @@
-import { createStyles, Navbar, Text, Group, NavLink, Button, Kbd } from '@mantine/core';
+import {
+  createStyles,
+  Navbar,
+  Text,
+  Group,
+  NavLink,
+  Button,
+  Kbd,
+  Collapse,
+  ActionIcon,
+  Modal,
+  Stack,
+  useMantineColorScheme,
+  TextInput
+} from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 import { openSpotlight } from '@mantine/spotlight';
-import { IconSearch, IconHome2, IconSettingsAutomation, IconSettings } from '@tabler/icons';
+import {
+  IconSearch,
+  IconSettingsAutomation,
+  IconSettings,
+  IconTemplate,
+  IconStack3,
+  IconPlus,
+  IconCheck,
+  IconX
+} from '@tabler/icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useOrganization } from '../../api/organizations/getOrganization';
+import { client } from '../../lib/apiClient';
 import { useAuth } from '../../util/AuthProvider';
 import { UserSection } from '../User/UserButton';
 
@@ -49,8 +77,50 @@ interface NavBarProps {
 }
 
 export function NavbarSearch({ opened }: NavBarProps) {
+  const theme = useMantineColorScheme();
   const { classes } = useStyles();
   const { user } = useAuth();
+  const [projectsOpened, setProjectsOpened] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
+  const organization = useOrganization(user.organizationId);
+  const form = useForm({
+    initialValues: { name: '' },
+    validate: {
+      name: (value) => (value.length < 2 ? 'Name must not be empty' : null)
+    }
+  });
+
+  async function handleProjectAdd(data: { name: string }) {
+    try {
+      let project = await client
+        .post(`projects`, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            name: data.name,
+            organization_id: user.organizationId
+          })
+        })
+        .json();
+
+      showNotification({
+        title: 'Success',
+        message: `Project created`,
+        autoClose: 5000,
+        color: 'green',
+        icon: <IconCheck />
+      });
+    } catch (error) {
+      showNotification({
+        title: 'Project creation failed',
+        message: `${error}`,
+        autoClose: 5000,
+        color: 'red',
+        icon: <IconX />
+      });
+    }
+  }
 
   return (
     <Navbar
@@ -73,13 +143,34 @@ export function NavbarSearch({ opened }: NavBarProps) {
             to={`organization/${user.organizationId}`}
             icon={<IconSettings size={18} stroke={1.5} />}
           />
-          <NavLink
-            className={classes.mainLink}
-            component={Link}
-            label="Projects"
-            to="projects/"
-            icon={<IconHome2 size={18} stroke={1.5} />}
-          />
+          <Group noWrap spacing={0}>
+            <NavLink
+              label="Projects"
+              className={classes.mainLink}
+              component="div"
+              onClick={() => setProjectsOpened((o: any) => !o)}
+              icon={<IconStack3 size={18} stroke={1.5} />}
+            />
+            {projectsOpened && (
+              <ActionIcon mr="xs" onClick={() => setModalOpened(true)}>
+                <IconPlus />
+              </ActionIcon>
+            )}
+          </Group>
+          <Collapse in={projectsOpened} pl="lg">
+            {organization.data?.projects?.map((p, idx) => {
+              return (
+                <NavLink
+                  key={idx}
+                  className={classes.mainLink}
+                  component={Link}
+                  label={p.name}
+                  to={`projects/${p.id}`}
+                  icon={<IconTemplate size={18} stroke={1.5} />}
+                />
+              );
+            })}
+          </Collapse>
           <NavLink
             className={classes.mainLink}
             component={Link}
@@ -110,6 +201,40 @@ export function NavbarSearch({ opened }: NavBarProps) {
           </div>
         </Group>
       </Navbar.Section>
+      <Modal
+        opened={modalOpened}
+        onClose={() => {
+          setModalOpened(false);
+        }}
+        title={
+          <Text size="xl" weight={700}>
+            New Project
+          </Text>
+        }
+        centered
+      >
+        <form onSubmit={form.onSubmit((values) => handleProjectAdd(values))}>
+          <Stack>
+            <TextInput
+              {...form.getInputProps('name')}
+              label={
+                <Text size="md" weight={700}>
+                  Project Name
+                </Text>
+              }
+            />
+            <Button
+              type="submit"
+              variant="outline"
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              size="lg"
+              disabled={!form.isDirty()}
+            >
+              Save
+            </Button>
+          </Stack>
+        </form>
+      </Modal>
     </Navbar>
   );
 }

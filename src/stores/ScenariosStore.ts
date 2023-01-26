@@ -1,9 +1,10 @@
 import create from 'zustand';
 
-export type Scenario = {
+type Scenario = {
   id: string;
   name: string;
 };
+
 
 interface ScenariosState {
   scenarios: Scenario[];
