@@ -2,7 +2,7 @@ import { Accordion, AccordionControlProps, Box, NavLink, ScrollArea, Text } from
 import { IconChartArrows, IconSettings } from '@tabler/icons';
 import { useState } from 'react';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
-import { Scenario } from '../../stores/ScenariosStore';
+import { Scenario } from '../../types/Test';
 import ScenarioDropdownMenu from './ScenarioDropdownMenu';
 
 type ScenarioOptionsProps = {
