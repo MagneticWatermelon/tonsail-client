@@ -48,7 +48,15 @@ export default function ScenariosBar() {
         <ActionIcon
           variant="outline"
           color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
-          onClick={() => addScenario({ id: nanoid(8), name: `SCENARIO_${scenarios.length + 1}` })}
+          onClick={() =>
+            addScenario({
+              id: nanoid(8),
+              name: `SCENARIO_${scenarios.length + 1}`,
+              timeout: '30s',
+              stages: [],
+              requests: []
+            })
+          }
           size={22}
           style={{ marginLeft: 'auto' }}
         >

@@ -1,10 +1,5 @@
 import create from 'zustand';
-
-type Scenario = {
-  id: string;
-  name: string;
-};
-
+import { Scenario } from '../types/Test';
 
 interface ScenariosState {
   scenarios: Scenario[];

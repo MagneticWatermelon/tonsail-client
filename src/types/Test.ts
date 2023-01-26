@@ -17,7 +17,6 @@ export type Request = z.infer<typeof Request>;
 
 export type Scenario = {
   id: string;
-  testId: string;
   name: string;
   timeout: string;
   stages: Stage[];
