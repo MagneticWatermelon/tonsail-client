@@ -8,7 +8,7 @@ import {
   Divider,
   Button
 } from '@mantine/core';
-import { IconPlus } from '@tabler/icons';
+import { IconPlus } from '@tabler/icons-react';
 import { nanoid } from 'nanoid';
 import { useScenarioActions, useScenarios } from '../../stores/ScenariosStore';
 import ScenarioAccordion from './ScenarioAccordion';

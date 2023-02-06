@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconSun, IconMoonStars } from '@tabler/icons';
+import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import {
   AppShell,
   Header,

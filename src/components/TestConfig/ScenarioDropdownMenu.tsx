@@ -1,5 +1,5 @@
 import { ActionIcon, Menu } from '@mantine/core';
-import { IconCopy, IconDotsVertical, IconTrash } from '@tabler/icons';
+import { IconCopy, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { nanoid } from 'nanoid';
 import { useScenarioActions } from '../../stores/ScenariosStore';
 import { Scenario } from '../../types/Test';

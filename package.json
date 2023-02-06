@@ -14,7 +14,7 @@
     "@mantine/hooks": "^5.10.1",
     "@mantine/notifications": "^5.10.1",
     "@mantine/spotlight": "^5.10.1",
-    "@tabler/icons": "^1.112.0",
+    "@tabler/icons-react": "^2.2.0",
     "@tanstack/react-query": "^4.16.1",
     "@tanstack/react-query-devtools": "^4.22.3",
     "@types/react-beautiful-dnd": "^13.1.2",
@@ -24,6 +24,8 @@
     "avvvatars-react": "^0.4.2",
     "immer": "^9.0.18",
     "ky": "^0.33.2",
+    "luxon": "^3.2.1",
+    "mantine-datatable": "^1.7.39",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -34,6 +36,7 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@types/luxon": "^3",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",

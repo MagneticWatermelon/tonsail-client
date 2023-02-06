@@ -1,5 +1,5 @@
 import { Box, Progress, PasswordInput, Group, Text, Center } from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (

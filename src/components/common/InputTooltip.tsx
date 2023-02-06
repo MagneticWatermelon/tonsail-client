@@ -1,5 +1,5 @@
 import { Center, Group, Text, Tooltip, TooltipProps } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 interface InputTooltipProps extends TooltipProps {
   textLabel: string;

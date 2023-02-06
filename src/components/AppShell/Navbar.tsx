@@ -25,7 +25,7 @@ import {
   IconPlus,
   IconCheck,
   IconX
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrganization } from '../../api/organizations/getOrganization';

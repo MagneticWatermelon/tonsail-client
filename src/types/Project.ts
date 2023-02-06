@@ -1,11 +1,11 @@
 import { Organization } from "./Organization";
 
 export interface Project {
-  id: String;
-  name: String;
-  createdAt: String;
-  updatedAt: String;
-  organizationId: String;
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  organizationId: string;
   organization: Organization | null;
-  tests: [] | null;
+  tests: any[] | null;
 }

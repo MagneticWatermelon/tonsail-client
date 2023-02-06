@@ -1,5 +1,5 @@
 import { SpotlightAction } from '@mantine/spotlight/lib/types';
-import { IconDashboard, IconFileText, IconHome } from '@tabler/icons';
+import { IconDashboard, IconFileText, IconHome } from '@tabler/icons-react';
 
 const SpotlightActions: SpotlightAction[] = [
   {

@@ -1,12 +1,11 @@
 import { Menu, Group, ActionIcon } from '@mantine/core';
-import { IconLogout, IconSettings, IconSwitchHorizontal, IconDotsVertical } from '@tabler/icons';
+import { IconLogout, IconSettings, IconSwitchHorizontal, IconDotsVertical } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../util/AuthProvider';
 
 export function UserMenu() {
   const auth = useAuth();
   const navigate = useNavigate();
-  // const userQuery = useUser();
 
   return (
     <Group position="center">

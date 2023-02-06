@@ -17,7 +17,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { IconCheck, IconCopy, IconX } from '@tabler/icons';
+import { IconCheck, IconCopy, IconX } from '@tabler/icons-react';
 import Avvvatars from 'avvvatars-react';
 import { useState } from 'react';
 import { client } from '../../lib/apiClient';

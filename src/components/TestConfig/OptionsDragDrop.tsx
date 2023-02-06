@@ -1,6 +1,6 @@
 import { createStyles, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { IconGripVertical } from '@tabler/icons';
+import { IconGripVertical } from '@tabler/icons-react';
 import { useRequestActions, useRequests } from '../../stores/RequestsStore';
 
 const useStyles = createStyles((theme) => ({
@@ -9,9 +9,8 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     maxWidth: '260px',
     borderRadius: theme.radius.md,
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
     paddingTop: `${theme.spacing.sm}px`,
     paddingBottom: `${theme.spacing.sm}px`,
     paddingLeft: theme.spacing.xl - theme.spacing.xs, // to offset drag handle
@@ -106,7 +105,7 @@ export function OptionsDnD() {
     >
       <DragDropContext
         onDragEnd={({ destination, source }) =>
-          reorderRequests(source.index, destination?.index || 0 )
+          reorderRequests(source.index, destination?.index || 0)
         }
       >
         <Droppable droppableId="dnd-list" direction="vertical">

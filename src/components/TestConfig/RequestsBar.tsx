@@ -8,7 +8,7 @@ import {
   Text,
   useMantineColorScheme
 } from '@mantine/core';
-import { IconPlus } from '@tabler/icons';
+import { IconPlus } from '@tabler/icons-react';
 import { nanoid } from 'nanoid';
 import { useRequestActions, useRequests } from '../../stores/RequestsStore';
 import { OptionsDnD } from './OptionsDragDrop';

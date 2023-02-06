@@ -1,5 +1,5 @@
 import { Accordion, AccordionControlProps, Box, NavLink, ScrollArea, Text } from '@mantine/core';
-import { IconChartArrows, IconSettings } from '@tabler/icons';
+import { IconChartArrows, IconSettings } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
 import { Scenario } from '../../types/Test';

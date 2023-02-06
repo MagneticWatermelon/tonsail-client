@@ -1,5 +1,5 @@
 import { showNotification } from '@mantine/notifications';
-import { IconX } from '@tabler/icons';
+import { IconX } from '@tabler/icons-react';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { client } from '../lib/apiClient';
 
