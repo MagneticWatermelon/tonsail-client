@@ -15,10 +15,10 @@ import { useLoaderData } from 'react-router-dom';
 interface RunMetric {
   name: string;
   run_id: string;
-  scenario: string;
-  url: string;
-  method: string;
-  status: string;
+  values: Data[];
+}
+
+interface Data {
   ts: string;
   value: number;
 }
@@ -63,7 +63,7 @@ const accessors = {
 
 export default function TestRuns() {
   const theme = useMantineTheme();
-  const metrics = useLoaderData() as RunMetric[];
+  const metrics = useLoaderData() as RunMetric;
   return (
     <Flex style={{ flex: '1 1 100%', flexDirection: 'column', height: 400, minWidth: 0 }}>
       <XYChart
@@ -92,7 +92,7 @@ export default function TestRuns() {
         <AnimatedLineSeries
           dataKey="Metrics"
           fillOpacity={0.2}
-          data={metrics}
+          data={metrics.values}
           xAccessor={accessors.xAccessor}
           yAccessor={accessors.yAccessor}
         />

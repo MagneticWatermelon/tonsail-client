@@ -4,10 +4,10 @@ import { client } from '../../lib/apiClient';
 interface RunMetric {
   name: string;
   runID: string;
-  method: string;
-  status: string;
-  scenario: string;
-  url: string;
+  values: Values[];
+}
+
+interface Values {
   ts: string;
   value: number;
 }

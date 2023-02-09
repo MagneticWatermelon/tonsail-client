@@ -220,6 +220,7 @@ export default function UserProfile() {
             <Button
               type="submit"
               variant="outline"
+              disabled={!passwordForm.isDirty()}
               color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
               size="lg"
             >

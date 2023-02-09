@@ -72,7 +72,7 @@ export function PasswordStrength({ form }: FormData) {
         {bars}
       </Group>
 
-      <PasswordRequirement label="Has at least 6 characters" meets={form.value.length > 5} />
+      <PasswordRequirement label="Has at least 8 characters" meets={form.value.length > 7} />
       {checks}
     </div>
   );
