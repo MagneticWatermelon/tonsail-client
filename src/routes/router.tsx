@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { projectLoader } from '../api/project/getProject';
 import { runMetricsLoader } from '../api/test/getRunMetrics';
 import { runTestLoader } from '../api/test/getRuns';
+import { LoginPage } from '../components/Login/LoginPage';
 import { RegisterPage } from '../components/Login/RegisterPage';
 import OrganizationProfile from '../components/Organization/OrganizationProfile';
 import ProjectTests from '../components/Project/ProjectTests';
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
         element: <TestRuns />
       }
     ]
+  },
+  {
+    path: 'login/',
+    element: <LoginPage />
   },
   {
     path: 'register/',
