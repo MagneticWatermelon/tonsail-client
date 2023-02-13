@@ -1,5 +1,3 @@
-import { showNotification } from '@mantine/notifications';
-import { IconX } from '@tabler/icons-react';
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { client } from '../lib/apiClient';
 
@@ -9,8 +7,7 @@ interface FormData {
 }
 
 const asyncAuthProvider = {
-  isAuthenticated: false,
-  async signin(form: FormData) {
+  async signin(form: FormData): Promise<User | undefined> {
     try {
       const resp = await client.post('login', {
         headers: {
@@ -22,15 +19,7 @@ const asyncAuthProvider = {
         })
       });
       return resp.json();
-    } catch (error) {
-      showNotification({
-        title: 'Login failed',
-        message: `${error}`,
-        autoClose: 5000,
-        color: "red",
-        icon: <IconX />
-      });
-    }
+    } catch (error) { }
   },
   async signout() { }
 };
