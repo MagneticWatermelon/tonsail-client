@@ -22,7 +22,7 @@ const handleErrors = async (error: HTTPError) => {
 export const client = ky.create({
   prefixUrl: BASE_API_URL,
   mode: 'cors',
-  // credentials: 'include'
+  credentials: 'include',
   hooks: {
     beforeError: [handleErrors]
   }

@@ -1,5 +1,8 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { client } from '../lib/apiClient';
+import { User } from '../types/User';
+import storage from './storage';
+import useCallbackState from './useCallbackState';
 
 interface FormData {
   email: string;
@@ -34,13 +37,15 @@ interface AuthContextType {
 let AuthContext = createContext<AuthContextType>(null!);
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  let [user, setUser] = useState<any>(null);
+  let [user, setUser] = useCallbackState<any>(() => {
+    return storage.getSession();
+  });
 
   let signin = async (data: FormData, callback: VoidFunction) => {
     let resp = await asyncAuthProvider.signin(data);
     if (resp) {
-      setUser(resp);
-      callback();
+      // storage.setSession(resp);
+      setUser(resp, callback);
     }
   };
 
@@ -50,8 +55,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   let signout = async (callback: VoidFunction) => {
     // if (resp?.ok) {
-    setUser(null);
-    callback();
+    setUser(null, callback);
     // }
   };
 
