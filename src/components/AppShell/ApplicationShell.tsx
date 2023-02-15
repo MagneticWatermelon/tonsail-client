@@ -3,16 +3,17 @@ import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import {
   AppShell,
   Header,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
   ActionIcon,
   useMantineColorScheme,
-  Title
+  Title,
+  Loader
 } from '@mantine/core';
 import { NavbarSearch } from './Navbar';
 import { useTitle } from '../../stores/AppTitleStore';
+import { useUser } from '../../providers/AuthProvider';
 
 type ShellProps = {
   children: React.ReactNode;
@@ -21,9 +22,17 @@ type ShellProps = {
 export default function ApplicationShell({ children }: ShellProps) {
   const theme = useMantineTheme();
   const title = useTitle();
+  const user = useUser();
   const { toggleColorScheme } = useMantineColorScheme();
   const [opened, setOpened] = useState(false);
 
+  if (user.isLoading) {
+    return <Loader />;
+  }
+
+  if (!user.data) {
+    return <div>Erorororor</div>;
+  }
   return (
     <AppShell
       styles={{
@@ -34,7 +43,7 @@ export default function ApplicationShell({ children }: ShellProps) {
       layout="alt"
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<NavbarSearch opened={opened} />}
+      navbar={<NavbarSearch user={user.data} opened={opened} />}
       header={
         <Header height={{ base: 50 }} p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
@@ -47,20 +56,20 @@ export default function ApplicationShell({ children }: ShellProps) {
                 mr="xl"
               />
             </MediaQuery>
-            <Title order={4} weight={700}>{title}</Title>
+            <Title order={4} weight={700}>
+              {title}
+            </Title>
             <ActionIcon
               variant="outline"
               color={theme.colorScheme === 'dark' ? 'yellow' : 'blue.8'}
               onClick={() => toggleColorScheme()}
               size={30}
-              style={{ marginLeft: 'auto' }}
-            >
+              style={{ marginLeft: 'auto' }}>
               {theme.colorScheme === 'dark' ? <IconSun size={16} /> : <IconMoonStars size={16} />}
             </ActionIcon>
           </div>
         </Header>
-      }
-    >
+      }>
       {children}
     </AppShell>
   );

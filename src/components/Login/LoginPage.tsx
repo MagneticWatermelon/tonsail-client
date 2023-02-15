@@ -10,8 +10,8 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLogin } from '../../providers/AuthProvider';
 import { useTitleActions } from '../../stores/AppTitleStore';
-import { useAuth } from '../../util/AuthProvider';
 
 const useStyles = createStyles((theme) => ({
   loginRoot: {
@@ -56,7 +56,7 @@ export function LoginPage() {
   const { classes } = useStyles();
   const { setTitle } = useTitleActions();
   setTitle('Login');
-  const auth = useAuth();
+  const login = useLogin();
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || '/';
@@ -75,9 +75,10 @@ export function LoginPage() {
   });
 
   function handleSubmit(data: { email: string; password: string }) {
-    auth.signin({ email: data.email, password: data.password }, () => {
-      navigate(from, { replace: true });
-    });
+    login.mutate(
+      { email: data.email, password: data.password },
+      { onSuccess: () => navigate(from, { replace: true }) }
+    );
   }
 
   return (

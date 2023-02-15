@@ -13,7 +13,8 @@ import {
   useMantineColorScheme,
   Group,
   Modal,
-  PasswordInput
+  PasswordInput,
+  Loader
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
@@ -21,12 +22,12 @@ import { IconCheck, IconCopy, IconX } from '@tabler/icons-react';
 import Avvvatars from 'avvvatars-react';
 import { useState } from 'react';
 import { client } from '../../lib/apiClient';
-import { useAuth } from '../../util/AuthProvider';
+import { useUser } from '../../providers/AuthProvider';
 import { PasswordStrength } from './PasswordInputWithStrength';
 
 export default function UserProfile() {
   const theme = useMantineColorScheme();
-  const { user, updateUser } = useAuth();
+  const user = useUser();
   const [modalOpened, setModalOpened] = useState(false);
 
   const passwordForm = useForm({
@@ -37,17 +38,24 @@ export default function UserProfile() {
   });
 
   const form = useForm({
-    initialValues: { organization_id: user.organizationId, name: user.name, email: user.email },
+    initialValues: {
+      organization_id: user.data?.organizationId,
+      name: user.data?.name,
+      email: user.data?.email
+    },
     transformValues: (values) => ({
       name: values.name,
       email: values.email
     })
   });
 
-  async function handleSubmit(data: { name: string; email: string }) {
+  async function handleSubmit(data: { name: string | undefined; email: string | undefined }) {
+    if (!data.name || !data.email) {
+      return;
+    }
     try {
-      let updatedUser = await client
-        .put(`users/${user.id}`, {
+      await client
+        .put(`users/${user.data?.id}`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -58,7 +66,7 @@ export default function UserProfile() {
         })
         .json();
 
-      updateUser(updatedUser);
+      user.refetch();
 
       showNotification({
         title: 'Success',
@@ -82,8 +90,8 @@ export default function UserProfile() {
 
   async function handlePasswordSubmit(data: { password: string }) {
     try {
-      let updatedUser = await client
-        .put(`users/${user.id}`, {
+      await client
+        .put(`users/${user.data?.id}`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -93,7 +101,7 @@ export default function UserProfile() {
         })
         .json();
 
-      updateUser(updatedUser);
+      user.refetch();
 
       showNotification({
         title: 'Success',
@@ -113,6 +121,14 @@ export default function UserProfile() {
     }
   }
 
+  if (user.isLoading) {
+    return <Loader />;
+  }
+
+  if (!user.data) {
+    return <div>Erorororor</div>;
+  }
+
   return (
     <Center>
       <Paper shadow="md" p="md" radius="md" w={600} withBorder>
@@ -126,7 +142,7 @@ export default function UserProfile() {
               <Text size="md" weight={700}>
                 Profile Picture
               </Text>
-              <Avvvatars value={user.name} size={175} />
+              <Avvvatars value={user.data.name} size={175} />
             </Stack>
             <TextInput
               {...form.getInputProps('organization_id')}
@@ -137,7 +153,7 @@ export default function UserProfile() {
               }
               disabled
               rightSection={
-                <CopyButton value={user.organizationId} timeout={2000}>
+                <CopyButton value={user.data.organizationId} timeout={2000}>
                   {({ copied, copy }) => (
                     <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
                       <ActionIcon color={copied ? 'green' : 'gray'} onClick={copy}>
@@ -173,16 +189,14 @@ export default function UserProfile() {
                   variant="outline"
                   color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
                   size="lg"
-                  disabled={!form.isDirty()}
-                >
+                  disabled={!form.isDirty()}>
                   Save Profile
                 </Button>
                 <Button
                   variant="outline"
                   color={theme.colorScheme == 'dark' ? 'gray.4' : 'red'}
                   onClick={() => setModalOpened(true)}
-                  size="lg"
-                >
+                  size="lg">
                   Update Password
                 </Button>
               </Group>
@@ -200,8 +214,7 @@ export default function UserProfile() {
             Change Password
           </Text>
         }
-        centered
-      >
+        centered>
         <form onSubmit={passwordForm.onSubmit((values) => handlePasswordSubmit(values))}>
           <Stack>
             <PasswordInput
@@ -222,8 +235,7 @@ export default function UserProfile() {
               variant="outline"
               disabled={!passwordForm.isDirty()}
               color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
-              size="lg"
-            >
+              size="lg">
               Save Password
             </Button>
           </Stack>

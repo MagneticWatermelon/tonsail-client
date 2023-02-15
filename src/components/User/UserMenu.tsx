@@ -1,11 +1,17 @@
 import { Menu, Group, ActionIcon } from '@mantine/core';
-import { IconLogout, IconSettings, IconSwitchHorizontal, IconDotsVertical } from '@tabler/icons-react';
+import {
+  IconLogout,
+  IconSettings,
+  IconSwitchHorizontal,
+  IconDotsVertical
+} from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../util/AuthProvider';
+import { useLogout, useUser } from '../../providers/AuthProvider';
 
 export function UserMenu() {
-  const auth = useAuth();
   const navigate = useNavigate();
+  const user = useUser();
+  const logout = useLogout();
 
   return (
     <Group position="center">
@@ -19,10 +25,9 @@ export function UserMenu() {
           <Menu.Label>Settings</Menu.Label>
           <Menu.Item
             onClick={() => {
-              navigate(`/account/${auth.user.id}`);
+              navigate(`/account/${user.data?.id}`);
             }}
-            icon={<IconSettings size={14} stroke={1.5} />}
-          >
+            icon={<IconSettings size={14} stroke={1.5} />}>
             Account settings
           </Menu.Item>
           <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
@@ -32,9 +37,8 @@ export function UserMenu() {
             color="red"
             icon={<IconLogout size={14} stroke={1.5} />}
             onClick={() => {
-              auth.signout(() => navigate('/'));
-            }}
-          >
+              logout.mutate({});
+            }}>
             Logout
           </Menu.Item>
         </Menu.Dropdown>

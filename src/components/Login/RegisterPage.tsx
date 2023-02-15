@@ -2,7 +2,7 @@ import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { client } from '../../lib/apiClient';
-import { useAuth } from '../../util/AuthProvider';
+import { useLogin } from '../../providers/AuthProvider';
 import { PasswordStrength } from '../User/PasswordInputWithStrength';
 
 const useStyles = createStyles((theme) => ({
@@ -46,9 +46,9 @@ const useStyles = createStyles((theme) => ({
 
 export function RegisterPage() {
   const { classes } = useStyles();
-  const auth = useAuth();
   let navigate = useNavigate();
   let location = useLocation();
+  const login = useLogin();
   let from = location.state?.from?.pathname || '/';
 
   const form = useForm({
@@ -74,9 +74,10 @@ export function RegisterPage() {
       })
     });
 
-    auth.signin({ email: data.email, password: data.password }, () => {
-      navigate(from, { replace: true });
-    });
+    // auth.signin({ email: data.email, password: data.password }, () => {
+    //   navigate(from, { replace: true });
+    // });
+    login.mutate({ email: data.email, password: data.password });
   }
 
   return (
@@ -102,7 +103,7 @@ export function RegisterPage() {
                 size="md"
                 {...form.getInputProps('email')}
               />
-              <PasswordStrength form={form.getInputProps("password")} />
+              <PasswordStrength form={form.getInputProps('password')} />
               <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
                 Sign Up
               </Button>

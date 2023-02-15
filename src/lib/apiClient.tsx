@@ -1,12 +1,11 @@
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import ky, { HTTPError } from 'ky';
-import { redirect } from 'react-router-dom';
 import { BASE_API_URL } from '../config';
 
 const handleErrors = async (error: HTTPError) => {
   if (error.response.status === 401) {
-    redirect('/login');
+    return error;
   }
   let errorBody = await error.response.json();
   showNotification({

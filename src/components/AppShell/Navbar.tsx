@@ -30,7 +30,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useOrganization } from '../../api/organizations/getOrganization';
 import { client } from '../../lib/apiClient';
-import { useAuth } from '../../util/AuthProvider';
+import { User } from '../../types/User';
 import { UserSection } from '../User/UserButton';
 
 const useStyles = createStyles((theme) => ({
@@ -73,13 +73,13 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface NavBarProps {
+  user: User;
   opened: boolean;
 }
 
-export function NavbarSearch({ opened }: NavBarProps) {
+export function NavbarSearch({ user, opened }: NavBarProps) {
   const theme = useMantineColorScheme();
   const { classes } = useStyles();
-  const { user } = useAuth();
   const [projectsOpened, setProjectsOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const organization = useOrganization(user.organizationId);
@@ -92,7 +92,7 @@ export function NavbarSearch({ opened }: NavBarProps) {
 
   async function handleProjectAdd(data: { name: string }) {
     try {
-      let project = await client
+      await client
         .post(`projects`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -128,8 +128,7 @@ export function NavbarSearch({ opened }: NavBarProps) {
       hidden={!opened}
       width={{ sm: 200, lg: 200 }}
       p="md"
-      className={classes.navbar}
-    >
+      className={classes.navbar}>
       <Navbar.Section className={classes.section}>
         <UserSection image="" name={user.name} email={user.email} />
       </Navbar.Section>
@@ -188,8 +187,7 @@ export function NavbarSearch({ opened }: NavBarProps) {
             color="dark"
             variant="subtle"
             leftIcon={<IconSearch size={12} stroke={1.5} />}
-            onClick={() => openSpotlight()}
-          >
+            onClick={() => openSpotlight()}>
             <Text size="sm" weight={500}>
               Spotlight
             </Text>
@@ -211,8 +209,7 @@ export function NavbarSearch({ opened }: NavBarProps) {
             New Project
           </Text>
         }
-        centered
-      >
+        centered>
         <form onSubmit={form.onSubmit((values) => handleProjectAdd(values))}>
           <Stack>
             <TextInput
@@ -228,8 +225,7 @@ export function NavbarSearch({ opened }: NavBarProps) {
               variant="outline"
               color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
               size="lg"
-              disabled={!form.isDirty()}
-            >
+              disabled={!form.isDirty()}>
               Save
             </Button>
           </Stack>

@@ -1,16 +1,14 @@
 import { Paper, Text, Stack } from '@mantine/core';
-import { useOrganization } from '../../api/organizations/getOrganization';
-import { useAuth } from '../../util/AuthProvider';
+import { useLoaderData } from 'react-router-dom';
+import { Organization } from '../../types/Organization';
 
 export default function OrganizationProfile() {
-  const { user } = useAuth();
-  const org = useOrganization(user.organizationId);
-
+  const org = useLoaderData() as Organization;
   return (
     <Paper>
       <Stack>
-        <Text>{org.data?.id}</Text>
-        <Text>{org.data?.name}</Text>
+        <Text>{org.id}</Text>
+        <Text>{org.name}</Text>
       </Stack>
     </Paper>
   );

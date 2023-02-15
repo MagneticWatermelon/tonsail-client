@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { runOrganizationLoader } from '../api/organizations/getOrganization';
 import { projectLoader } from '../api/project/getProject';
 import { runMetricsLoader } from '../api/test/getRunMetrics';
 import { runTestLoader } from '../api/test/getRuns';
@@ -42,11 +43,12 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'account/:user_id',
+        path: 'account/:userId',
         element: <UserProfile />
       },
       {
-        path: 'organization/:organization_id',
+        path: 'organization/:organizationId',
+        loader: runOrganizationLoader(queryClient),
         element: <OrganizationProfile />
       },
       {
