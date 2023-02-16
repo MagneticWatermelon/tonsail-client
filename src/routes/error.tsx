@@ -1,5 +1,5 @@
 import { createStyles, Title, Text, Button, Group, Center } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
+import { isRouteErrorResponse, Navigate, useNavigate, useRouteError } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -45,6 +45,27 @@ const useStyles = createStyles((theme) => ({
 export function ErrorPage() {
   const { classes } = useStyles();
   const navigate = useNavigate();
+  const error = useRouteError();
+  if (isRouteErrorResponse(error)) {
+    if (error.status === 401) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    } else {
+      return (
+        <Center className={classes.root}>
+          <div className={classes.label}>{error.status}</div>
+          <Title className={classes.title}>You have found a secret place.</Title>
+          <Text color="dimmed" size="lg" align="center" className={classes.description}>
+            {error.statusText}
+          </Text>
+          <Group position="center">
+            <Button variant="subtle" size="md" onClick={() => navigate(-1)}>
+              Take me back
+            </Button>
+          </Group>
+        </Center>
+      );
+    }
+  }
 
   return (
     <Center className={classes.root}>

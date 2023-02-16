@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function ProtectedRoute({ children }: Props) {
-  const user = useUser({ useErrorBoundary: (error: any) => error.response?.status >= 500 });
+  const user = useUser();
   let location = useLocation();
 
   if (user.isLoading) {
