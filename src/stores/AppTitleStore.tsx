@@ -1,4 +1,3 @@
-import { useDocumentTitle } from '@mantine/hooks';
 import create from 'zustand';
 
 export type AppTitle = {
@@ -18,12 +17,13 @@ const useAppTitleStore = create<AppTitleState>()((set) => ({
   actions: {
     setTitle: (s) =>
       set(() => {
-        useDocumentTitle(s);
+        s += ' | Tonsail';
+        document.title = s;
         return { appTitle: { title: s } };
       })
   }
 }));
 
-export const useTitle = () => useAppTitleStore((state) => state.appTitle.title);
+export const useTitle = () => useAppTitleStore((state) => state.appTitle.title.split('|')[0]);
 
 export const useTitleActions = () => useAppTitleStore((state) => state.actions);
