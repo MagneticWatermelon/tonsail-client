@@ -66,15 +66,11 @@ export default function ProjectTests() {
           Create Test
         </Button>
       </Paper>
-      <Grid>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
         {project.tests?.map((test, idx) => {
-          return (
-            <Grid.Col span="content" key={idx}>
-              <TestRunCard test={test} />
-            </Grid.Col>
-          );
+          return <TestRunCard test={test} key={idx} />;
         })}
-      </Grid>
+      </div>
       <Modal
         opened={modalOpened}
         onClose={() => {

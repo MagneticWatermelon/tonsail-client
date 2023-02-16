@@ -6,6 +6,7 @@ import {
   MantineTheme,
   Menu,
   Paper,
+  createStyles,
   Stack,
   Text,
   useMantineTheme
@@ -34,10 +35,31 @@ function getTestStatusColor(theme: MantineTheme, runs: any[]) {
   }
 }
 
+const useStyles = createStyles(() => ({
+  card: {
+    minHeight: 200,
+    width: 345,
+    [`@media (min-width: 1600px)`]: {
+      width: 'calc(25% - 20px)'
+    },
+    [`@media (min-width: 1240px) and (max-width: 1599px)`]: {
+      width: 'calc(33% - 20px)'
+    },
+    [`@media (min-width: 901px) and (max-width: 1239px)`]: {
+      width: 'calc(50% - 20px)'
+    },
+    [`@media (max-width: 900px)`]: {
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
+  }
+}));
+
 export default function TestRunCard({ test }: Props) {
   const theme = useMantineTheme();
+  const { classes } = useStyles();
   return (
-    <Paper mih={200} w={300} shadow="xs" withBorder>
+    <Paper className={classes.card} shadow="xs" withBorder>
       <Stack>
         <Group m="md" noWrap>
           <ColorSwatch
@@ -74,7 +96,9 @@ export default function TestRunCard({ test }: Props) {
             <div>No Runs</div>
           </Container>
         ) : (
-          <div>Last Run Data</div>
+          <Container>
+            <div>Last Run Data</div>
+          </Container>
         )}
       </Stack>
     </Paper>
