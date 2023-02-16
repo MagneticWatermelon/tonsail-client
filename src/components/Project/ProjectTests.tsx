@@ -43,6 +43,7 @@ export default function ProjectTests() {
         })
         .json()) as any;
 
+      setModalOpened(false);
       navigate(`/tests/${test.id}/config`);
     } catch (error) {
       showNotification({
@@ -61,8 +62,7 @@ export default function ProjectTests() {
           variant="outline"
           onClick={() => {
             setModalOpened(true);
-          }}
-        >
+          }}>
           Create Test
         </Button>
       </Paper>
@@ -85,8 +85,7 @@ export default function ProjectTests() {
             New Test
           </Text>
         }
-        centered
-      >
+        centered>
         <form onSubmit={form.onSubmit((values) => handleCreateTest(values))}>
           <Stack>
             <TextInput
@@ -102,8 +101,7 @@ export default function ProjectTests() {
               variant="outline"
               color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
               size="lg"
-              disabled={!form.isDirty()}
-            >
+              disabled={!form.isDirty()}>
               Save
             </Button>
           </Stack>

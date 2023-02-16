@@ -80,7 +80,7 @@ interface NavBarProps {
 export function NavbarSearch({ user, opened }: NavBarProps) {
   const theme = useMantineColorScheme();
   const { classes } = useStyles();
-  const [projectsOpened, setProjectsOpened] = useState(false);
+  const [projectsOpened, setProjectsOpened] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
   const organization = useOrganization(user.organizationId);
   const form = useForm({
@@ -104,6 +104,8 @@ export function NavbarSearch({ user, opened }: NavBarProps) {
         })
         .json();
 
+      setModalOpened(false);
+      organization.refetch();
       showNotification({
         title: 'Success',
         message: `Project created`,

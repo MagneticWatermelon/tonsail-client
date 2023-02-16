@@ -102,7 +102,7 @@ export default function UserProfile() {
         .json();
 
       user.refetch();
-
+      setModalOpened(false);
       showNotification({
         title: 'Success',
         message: `Password updated`,
