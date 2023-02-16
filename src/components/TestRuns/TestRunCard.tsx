@@ -40,14 +40,18 @@ export default function TestRunCard({ test }: Props) {
     <Paper mih={200} w={300} shadow="xs" withBorder>
       <Stack>
         <Group m="md" noWrap>
-          <ColorSwatch radius={0} size={14} color={getTestStatusColor(theme, test.runs)} />
+          <ColorSwatch
+            style={{ flexShrink: 0 }}
+            radius="xl"
+            size={18}
+            color={getTestStatusColor(theme, test.runs)}
+          />
           <Text
             component={Link}
             to={`/tests/${test.id}`}
             style={{ display: 'block', flexGrow: 1 }}
             lineClamp={1}
-            truncate
-          >
+            truncate>
             {test.name}
           </Text>
           <Menu withArrow width={160} position="bottom" transition="pop">
