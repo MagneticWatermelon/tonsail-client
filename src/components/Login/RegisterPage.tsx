@@ -1,8 +1,10 @@
 import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { client } from '../../lib/apiClient';
 import { useLogin } from '../../providers/AuthProvider';
+import { useTitleActions } from '../../stores/AppTitleStore';
 import { PasswordStrength } from '../User/PasswordInputWithStrength';
 
 const useStyles = createStyles((theme) => ({
@@ -46,10 +48,11 @@ const useStyles = createStyles((theme) => ({
 
 export function RegisterPage() {
   const { classes } = useStyles();
-  let navigate = useNavigate();
-  let location = useLocation();
   const login = useLogin();
-  let from = location.state?.from?.pathname || '/';
+  const { setTitle } = useTitleActions();
+  useEffect(() => {
+    setTitle('Register');
+  }, []);
 
   const form = useForm({
     initialValues: {

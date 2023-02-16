@@ -1,7 +1,9 @@
 import { IconHistoryOff } from '@tabler/icons-react';
 import { DateTime } from 'luxon';
 import { DataTable } from 'mantine-datatable';
+import { useEffect } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useTitleActions } from '../../stores/AppTitleStore';
 
 interface Test {
   id: string;
@@ -21,6 +23,10 @@ interface TestRun {
 export default function TestDetail() {
   const test = useLoaderData() as Test;
   const navigate = useNavigate();
+  const { setTitle } = useTitleActions();
+  useEffect(() => {
+    setTitle('Test Runs');
+  }, []);
   return (
     <DataTable
       shadow="md"

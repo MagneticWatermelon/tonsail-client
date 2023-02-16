@@ -11,9 +11,10 @@ import {
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { client } from '../../lib/apiClient';
+import { useTitleActions } from '../../stores/AppTitleStore';
 import { Project } from '../../types/Project';
 import TestRunCard from '../TestRuns/TestRunCard';
 
@@ -22,6 +23,12 @@ export default function ProjectTests() {
   const project = useLoaderData() as Project;
   const [modalOpened, setModalOpened] = useState(false);
   const navigate = useNavigate();
+  const { setTitle } = useTitleActions();
+
+  useEffect(() => {
+    setTitle('Project');
+  }, []);
+
   const form = useForm({
     initialValues: { name: '' },
     validate: {

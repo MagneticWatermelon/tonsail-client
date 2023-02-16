@@ -20,14 +20,19 @@ import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconCopy, IconX } from '@tabler/icons-react';
 import Avvvatars from 'avvvatars-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { client } from '../../lib/apiClient';
 import { useUser } from '../../providers/AuthProvider';
+import { useTitleActions } from '../../stores/AppTitleStore';
 import { PasswordStrength } from './PasswordInputWithStrength';
 
 export default function UserProfile() {
   const theme = useMantineColorScheme();
   const user = useUser();
+  const { setTitle } = useTitleActions();
+  useEffect(() => {
+    setTitle('User Account');
+  }, []);
   const [modalOpened, setModalOpened] = useState(false);
 
   const passwordForm = useForm({

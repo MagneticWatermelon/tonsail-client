@@ -10,7 +10,9 @@ import {
   XYChartTheme
 } from '@visx/xychart';
 import { DateTime } from 'luxon';
+import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { useTitleActions } from '../../stores/AppTitleStore';
 
 interface RunMetric {
   name: string;
@@ -64,13 +66,16 @@ const accessors = {
 export default function TestRuns() {
   const theme = useMantineTheme();
   const metrics = useLoaderData() as RunMetric;
+  const { setTitle } = useTitleActions();
+  useEffect(() => {
+    setTitle('Run with ID');
+  }, []);
   return (
     <Flex style={{ flex: '1 1 100%', flexDirection: 'column', height: 400, minWidth: 0 }}>
       <XYChart
         theme={chartTheme(theme.colorScheme)}
         xScale={{ type: 'time' }}
-        yScale={{ type: 'linear', nice: true }}
-      >
+        yScale={{ type: 'linear', nice: true }}>
         <AnimatedAxis
           tickFormat={(date: Date) => {
             return DateTime.fromJSDate(date).toLocaleString(DateTime.TIME_24_WITH_SECONDS);
