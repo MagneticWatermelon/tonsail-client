@@ -1,9 +1,12 @@
-import loginWithEmailAndPassword from '../api/auth/loginUser';
-import logoutUser from '../api/auth/logoutUser';
-import registerWithEmailAndPassword from '../api/auth/registerUser';
-import { getMe } from '../api/user/getMe';
-import { LoginFormData, RegisterFormData } from '../types/Auth';
-import { configureAuth } from '../util/AuthConfig';
+import {
+  LoginFormData,
+  loginWithEmailAndPassword,
+  logoutUser,
+  RegisterFormData,
+  registerWithEmailAndPassword
+} from '@/features/auth';
+import { getMe } from '@/features/user';
+import { configureAuth } from '@/util/AuthConfig';
 
 async function userFn() {
   const user = await getMe();

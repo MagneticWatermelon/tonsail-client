@@ -1,21 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { runOrganizationLoader } from '../api/organizations/getOrganization';
-import { projectLoader } from '../api/project/getProject';
-import { runMetricsLoader } from '../api/test/getRunMetrics';
-import { runTestLoader } from '../api/test/getRuns';
-import { LoginPage } from '../components/Login/LoginPage';
-import { RegisterPage } from '../components/Login/RegisterPage';
-import OrganizationProfile from '../components/Organization/OrganizationProfile';
 import ProjectTests from '../components/Project/ProjectTests';
 import RequestConfig from '../components/RequestConfig/RequestConfig';
 import StageConfig from '../components/StageConfig/StageConfig';
 import TestDetail from '../components/Test/TestDetail';
 import TestConfig from '../components/TestConfig/TestConfig';
 import TestRuns from '../components/TestRuns/TestRuns';
-import UserProfile from '../components/User/UserProfile';
-import { queryClient } from '../lib/react-query';
+import { LoginPage, RegisterPage } from '@/features/auth';
+import { UserProfile } from '@/features/user';
 import { ErrorPage } from './error';
 import RootRoute from './root';
+import { queryClient } from '@/lib/react-query';
+import { runMetricsLoader, runTestLoader } from '@/features/test';
+import { OrganizationProfile, runOrganizationLoader } from '@/features/organization';
+import { projectLoader } from '@/features/project';
 
 const router = createBrowserRouter([
   {

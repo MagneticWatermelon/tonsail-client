@@ -1,11 +1,12 @@
 import { Organization } from '@/features/organization';
 
-export interface Project {
+export type User = {
   id: string;
+  email: string;
+  password: string;
   name: string;
   createdAt: string;
   updatedAt: string;
   organizationId: string;
   organization: Organization | null;
-  tests: any[] | null;
-}
+};

@@ -1,3 +1,6 @@
+import { useOrganization } from '@/features/organization';
+import { User, UserSection } from '@/features/user';
+import { client } from '@/lib/apiClient';
 import {
   createStyles,
   Navbar,
@@ -28,10 +31,6 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useOrganization } from '../../api/organizations/getOrganization';
-import { client } from '../../lib/apiClient';
-import { User } from '../../types/User';
-import { UserSection } from '../User/UserButton';
 
 const useStyles = createStyles((theme) => ({
   navbar: {

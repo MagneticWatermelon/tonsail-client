@@ -1,4 +1,4 @@
-import { User } from '../types/User';
+import { User } from '@/features/user';
 
 const storagePrefix = 'tonsail_app_';
 
