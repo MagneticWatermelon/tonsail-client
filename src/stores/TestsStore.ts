@@ -1,6 +1,6 @@
+import { Scenario, Test } from '@/features/test';
 import produce from 'immer';
 import create from 'zustand';
-import { Scenario, Test } from '../types/Test';
 
 interface TestsState {
   tests: Test[];

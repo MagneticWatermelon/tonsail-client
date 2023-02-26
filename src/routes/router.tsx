@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import ProjectTests from '../components/Project/ProjectTests';
 import RequestConfig from '../components/RequestConfig/RequestConfig';
 import StageConfig from '../components/StageConfig/StageConfig';
 import TestDetail from '../components/Test/TestDetail';
@@ -12,7 +11,7 @@ import RootRoute from './root';
 import { queryClient } from '@/lib/react-query';
 import { runMetricsLoader, runTestLoader } from '@/features/test';
 import { OrganizationProfile, runOrganizationLoader } from '@/features/organization';
-import { projectLoader } from '@/features/project';
+import { projectLoader, ProjectTests } from '@/features/project';
 
 const router = createBrowserRouter([
   {

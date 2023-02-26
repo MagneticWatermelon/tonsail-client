@@ -17,6 +17,7 @@
     "@tabler/icons-react": "^2.2.0",
     "@tanstack/react-query": "^4.16.1",
     "@tanstack/react-query-devtools": "^4.22.3",
+    "@tanstack/router": "^0.0.1-beta.83",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@visx/curve": "^2.1.0",
     "@visx/text": "^2.12.2",

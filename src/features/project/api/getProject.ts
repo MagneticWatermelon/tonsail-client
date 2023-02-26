@@ -1,6 +1,6 @@
 import { client } from '@/lib/apiClient';
-import { Project } from '@/types/Project';
 import { QueryClient, useQuery } from '@tanstack/react-query';
+import { Project } from '../types';
 
 async function getProject(id: String): Promise<Project> {
   const res = await client.get(`projects/${id}`);

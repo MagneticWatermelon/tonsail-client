@@ -1,24 +1,15 @@
-import {
-  Button,
-  Grid,
-  Modal,
-  Paper,
-  Stack,
-  Text,
-  TextInput,
-  useMantineColorScheme
-} from '@mantine/core';
+import TestRunCard from '@/components/TestRuns/TestRunCard';
+import { client } from '@/lib/apiClient';
+import { useTitleActions } from '@/stores/AppTitleStore';
+import { Button, Modal, Paper, Stack, Text, TextInput, useMantineColorScheme } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { client } from '../../lib/apiClient';
-import { useTitleActions } from '../../stores/AppTitleStore';
-import { Project } from '../../types/Project';
-import TestRunCard from '../TestRuns/TestRunCard';
+import { Project } from '../types';
 
-export default function ProjectTests() {
+export function ProjectTests() {
   const theme = useMantineColorScheme();
   const project = useLoaderData() as Project;
   const [modalOpened, setModalOpened] = useState(false);

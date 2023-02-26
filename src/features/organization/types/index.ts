@@ -1,5 +1,5 @@
+import { Project } from '@/features/project';
 import { User } from '@/features/user';
-import { Project } from '@/types/Project';
 
 export type Organization = {
   id: String;

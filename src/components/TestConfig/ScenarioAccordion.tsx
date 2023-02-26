@@ -1,8 +1,8 @@
+import { Scenario } from '@/features/test';
 import { Accordion, AccordionControlProps, Box, NavLink, ScrollArea, Text } from '@mantine/core';
 import { IconChartArrows, IconSettings } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
-import { Scenario } from '../../types/Test';
 import ScenarioDropdownMenu from './ScenarioDropdownMenu';
 
 type ScenarioOptionsProps = {
@@ -32,8 +32,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
       maxHeight="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
       style={{ flexGrow: 1 }}
       scrollbarSize={8}
-      scrollHideDelay={100}
-    >
+      scrollHideDelay={100}>
       <Accordion
         chevronPosition="left"
         chevronSize={14}
@@ -51,8 +50,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
           }
           setScenario(value);
           navigate(`scenario/${value}`);
-        }}
-      >
+        }}>
         {scenarios.map((s) => {
           return (
             <Accordion.Item value={s.id} key={s.id}>
@@ -63,8 +61,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                   color="dimmed"
                   lineClamp={1}
                   fz="xs"
-                  fw="bold"
-                >
+                  fw="bold">
                   {s.name}
                 </Text>
               </AccordionControl>

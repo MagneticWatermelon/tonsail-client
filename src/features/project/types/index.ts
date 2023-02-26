@@ -1,6 +1,6 @@
 import { Organization } from '@/features/organization';
 
-export interface Project {
+export type Project = {
   id: string;
   name: string;
   createdAt: string;
@@ -8,4 +8,4 @@ export interface Project {
   organizationId: string;
   organization: Organization | null;
   tests: any[] | null;
-}
+};

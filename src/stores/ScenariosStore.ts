@@ -1,5 +1,5 @@
+import { Scenario } from '@/features/test';
 import create from 'zustand';
-import { Scenario } from '../types/Test';
 
 interface ScenariosState {
   scenarios: Scenario[];
