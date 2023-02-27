@@ -111,7 +111,7 @@ export function LoginPage() {
 
             <Text align="center" mt="md">
               Don&apos;t have an account?{' '}
-              <Anchor component={Link} weight={700} to="register/">
+              <Anchor component={Link} weight={700} to="/register">
                 Register
               </Anchor>
             </Text>
