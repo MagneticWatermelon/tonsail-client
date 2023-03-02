@@ -1,9 +1,9 @@
+import { NeumorphicCard } from '@/components/NeumorphicCard';
 import { PasswordStrength } from '@/features/auth';
 import { client } from '@/lib/apiClient';
 import { useUser } from '@/providers/AuthProvider';
 import { useTitleActions } from '@/stores/AppTitleStore';
 import {
-  Paper,
   Text,
   Stack,
   Divider,
@@ -136,7 +136,7 @@ export function UserProfile() {
 
   return (
     <Center>
-      <Paper shadow="md" p="md" radius="md" w={600} withBorder>
+      <NeumorphicCard p="md" radius="md" w="clamp(30%, 600px, 100%)">
         <Title order={3} weight={700}>
           Profile
         </Title>
@@ -208,7 +208,7 @@ export function UserProfile() {
             </Center>
           </Stack>
         </form>
-      </Paper>
+      </NeumorphicCard>
       <Modal
         opened={modalOpened}
         onClose={() => {
