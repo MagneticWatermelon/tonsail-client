@@ -2,10 +2,10 @@ import { Project } from '@/features/project';
 import { User } from '@/features/user';
 
 export type Organization = {
-  id: String;
-  name: String;
-  createdAt: String;
-  updatedAt: String;
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
   projects: Project[] | null;
   users: User[] | null;
 };
