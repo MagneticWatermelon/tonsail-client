@@ -38,7 +38,8 @@ export function UserProfile() {
   const passwordForm = useForm({
     initialValues: { old_password: '', old_password_again: '', new_password: '' },
     transformValues: (values) => ({
-      password: values.new_password
+      old: values.old_password,
+      new: values.new_password
     })
   });
 
@@ -93,21 +94,23 @@ export function UserProfile() {
     }
   }
 
-  async function handlePasswordSubmit(data: { password: string }) {
+  async function handlePasswordSubmit(data: { old: string; new: string }) {
     try {
       await client
-        .put(`users/${user.data?.id}`, {
+        .put(`users/${user.data?.id}/password`, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: new URLSearchParams({
-            password: data.password
+            old: data.old,
+            new: data.new
           })
         })
         .json();
 
       user.refetch();
       setModalOpened(false);
+      passwordForm.reset();
       showNotification({
         title: 'Success',
         message: `Password updated`,
