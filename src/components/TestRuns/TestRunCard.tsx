@@ -18,6 +18,7 @@ import {
   IconTrash
 } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+import { NeumorphicCard } from '../NeumorphicCard';
 
 interface Props {
   test: any;
@@ -59,7 +60,7 @@ export default function TestRunCard({ test }: Props) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <Paper className={classes.card} shadow="xs" withBorder>
+    <NeumorphicCard className={classes.card}>
       <Stack>
         <Group m="md" noWrap>
           <ColorSwatch
@@ -101,6 +102,6 @@ export default function TestRunCard({ test }: Props) {
           </Container>
         )}
       </Stack>
-    </Paper>
+    </NeumorphicCard>
   );
 }

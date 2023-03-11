@@ -8,15 +8,15 @@ const useStyles = createStyles((theme) => ({
         : 'linear-gradient(145deg, #f2f2f2, #ffffff)',
     boxShadow:
       theme.colorScheme === 'dark'
-        ? '20px 0px 20px #080809,-20px 0px 20px #080809'
-        : '20px 0px 20px #c2c2c2,-20px 0px 20px #c2c2c2'
+        ? '5px 0px 10px #080809,-5px 0px 10px #080809'
+        : '5px 0px 10px #c2c2c2,-5px 0px 10px #c2c2c2'
   }
 }));
 
-export function NeumorphicCard({ children, ...props }: CardProps) {
-  const { classes, theme } = useStyles();
+export function NeumorphicCard({ children, className, ...props }: CardProps) {
+  const { classes, cx } = useStyles();
   return (
-    <Paper className={classes.card} {...props}>
+    <Paper className={cx(classes.card, className)} {...props}>
       {children}
     </Paper>
   );
