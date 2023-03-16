@@ -4,6 +4,7 @@ import { useTitleActions } from '@/stores/AppTitleStore';
 import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PasswordStrength } from '../components/PasswordInputWithStrength';
 
 const useStyles = createStyles((theme) => ({
@@ -49,6 +50,9 @@ export function RegisterPage() {
   const { classes } = useStyles();
   const login = useLogin();
   const { setTitle } = useTitleActions();
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || '/';
   useEffect(() => {
     setTitle('Register');
   }, []);
@@ -76,7 +80,10 @@ export function RegisterPage() {
       })
     });
 
-    login.mutate({ email: data.email, password: data.password });
+    login.mutate(
+      { email: data.email, password: data.password },
+      { onSuccess: () => navigate(from, { replace: true }) }
+    );
   }
 
   return (
