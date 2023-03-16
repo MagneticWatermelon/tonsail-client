@@ -14,6 +14,7 @@ import {
 import { NavbarSearch } from './Navbar';
 import { useTitle } from '../../stores/AppTitleStore';
 import { useUser } from '../../providers/AuthProvider';
+import { useDisclosure } from '@mantine/hooks';
 
 type ShellProps = {
   children: React.ReactNode;
@@ -24,7 +25,8 @@ export default function ApplicationShell({ children }: ShellProps) {
   const title = useTitle();
   const user = useUser();
   const { toggleColorScheme } = useMantineColorScheme();
-  const [opened, setOpened] = useState(false);
+  // const [opened, setOpened] = useState(false);
+  const [opened, handlers] = useDisclosure();
 
   if (user.isLoading) {
     return <Loader />;
@@ -43,14 +45,14 @@ export default function ApplicationShell({ children }: ShellProps) {
       layout="alt"
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<NavbarSearch user={user.data} opened={opened} />}
+      navbar={<NavbarSearch user={user.data} hidden={!opened} handler={handlers} />}
       header={
         <Header height={{ base: 50 }} p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
               <Burger
                 opened={opened}
-                onClick={() => setOpened((o) => !o)}
+                onClick={() => handlers.toggle()}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"

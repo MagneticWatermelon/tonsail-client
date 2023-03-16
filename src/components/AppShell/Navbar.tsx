@@ -14,7 +14,11 @@ import {
   Modal,
   Stack,
   useMantineColorScheme,
-  TextInput
+  TextInput,
+  ScrollArea,
+  MediaQuery,
+  Burger,
+  useMantineTheme
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
@@ -57,7 +61,7 @@ const useStyles = createStyles((theme) => ({
   mainLink: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%',
+    width: '167px',
     fontSize: theme.fontSizes.xs,
     padding: `8px ${theme.spacing.xs}px`,
     borderRadius: theme.radius.sm,
@@ -73,11 +77,16 @@ const useStyles = createStyles((theme) => ({
 
 interface NavBarProps {
   user: User;
-  opened: boolean;
+  hidden: boolean;
+  handler: {
+    readonly open: () => void;
+    readonly close: () => void;
+    readonly toggle: () => void;
+  };
 }
 
-export function NavbarSearch({ user, opened }: NavBarProps) {
-  const theme = useMantineColorScheme();
+export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
+  const theme = useMantineTheme();
   const { classes } = useStyles();
   const [projectsOpened, setProjectsOpened] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
@@ -124,12 +133,16 @@ export function NavbarSearch({ user, opened }: NavBarProps) {
   }
 
   return (
-    <Navbar
-      hiddenBreakpoint="sm"
-      hidden={!opened}
-      width={{ sm: 200, lg: 200 }}
-      p="md"
-      className={classes.navbar}>
+    <Navbar hiddenBreakpoint="sm" hidden={hidden} width={{ sm: 200, lg: 200 }} p="md">
+      <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+        <Burger
+          opened={!hidden}
+          onClick={() => handler.toggle()}
+          size="sm"
+          color={theme.colors.gray[6]}
+          mr="xl"
+        />
+      </MediaQuery>
       <Navbar.Section className={classes.section}>
         <UserSection image="" name={user.name} email={user.email} />
       </Navbar.Section>
@@ -151,25 +164,25 @@ export function NavbarSearch({ user, opened }: NavBarProps) {
               onClick={() => setProjectsOpened((o: any) => !o)}
               icon={<IconStack3 size={18} stroke={1.5} />}
             />
-            {projectsOpened && (
-              <ActionIcon mr="xs" onClick={() => setModalOpened(true)}>
-                <IconPlus />
-              </ActionIcon>
-            )}
+            <ActionIcon mr="xs" onClick={() => setModalOpened(true)}>
+              <IconPlus />
+            </ActionIcon>
           </Group>
           <Collapse in={projectsOpened} pl="lg">
-            {organization.data?.projects?.map((p, idx) => {
-              return (
-                <NavLink
-                  key={idx}
-                  className={classes.mainLink}
-                  component={Link}
-                  label={p.name}
-                  to={`projects/${p.id}`}
-                  icon={<IconTemplate size={18} stroke={1.5} />}
-                />
-              );
-            })}
+            <ScrollArea.Autosize maxHeight={250} offsetScrollbars scrollbarSize={6}>
+              {organization.data?.projects?.map((p, idx) => {
+                return (
+                  <NavLink
+                    key={idx}
+                    className={classes.mainLink}
+                    component={Link}
+                    label={p.name}
+                    to={`projects/${p.id}`}
+                    icon={<IconTemplate size={18} stroke={1.5} />}
+                  />
+                );
+              })}
+            </ScrollArea.Autosize>
           </Collapse>
           <NavLink
             className={classes.mainLink}
