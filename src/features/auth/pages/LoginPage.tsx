@@ -12,6 +12,8 @@ import { useForm } from '@mantine/form';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useLogin } from '@/providers/AuthProvider';
 import { useTitleActions } from '@/stores/AppTitleStore';
+import { IconX } from '@tabler/icons-react';
+import { showNotification } from '@mantine/notifications';
 
 const useStyles = createStyles((theme) => ({
   loginRoot: {
@@ -74,10 +76,22 @@ export function LoginPage() {
     }
   });
 
-  function handleSubmit(data: { email: string; password: string }) {
+  function handleLogin(data: { email: string; password: string }) {
     login.mutate(
       { email: data.email, password: data.password },
-      { onSuccess: () => navigate(from, { replace: true }) }
+      {
+        onSuccess: () => navigate(from, { replace: true }),
+        onError() {
+          form.reset();
+          showNotification({
+            title: 'Login Failed',
+            message: `Wrong credentials`,
+            autoClose: 5000,
+            color: 'red',
+            icon: <IconX />
+          });
+        }
+      }
     );
   }
 
@@ -90,7 +104,7 @@ export function LoginPage() {
               Welcome to Tonsail!
             </Title>
 
-            <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+            <form onSubmit={form.onSubmit((values) => handleLogin(values))}>
               <TextInput
                 label="Email address"
                 placeholder="hello@email.com"
