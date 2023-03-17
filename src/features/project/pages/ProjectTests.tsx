@@ -1,17 +1,23 @@
 import TestRunCard from '@/components/TestRuns/TestRunCard';
-import { client } from '@/lib/apiClient';
+import { useCreateTest } from '@/features/test';
 import { useTitleActions } from '@/stores/AppTitleStore';
 import { Button, Modal, Paper, Stack, Text, TextInput, useMantineColorScheme } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
-import { Project } from '../types';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useProject } from '../api/getProject';
+
+type ProjectRouteParams = {
+  projectId: string;
+};
 
 export function ProjectTests() {
   const theme = useMantineColorScheme();
-  const project = useLoaderData() as Project;
+  const { projectId } = useParams() as ProjectRouteParams;
+  const project = useProject(projectId);
+  const createTest = useCreateTest();
   const [modalOpened, setModalOpened] = useState(false);
   const navigate = useNavigate();
   const { setTitle } = useTitleActions();
@@ -28,31 +34,27 @@ export function ProjectTests() {
   });
 
   async function handleCreateTest(data: { name: string }) {
-    try {
-      let test = (await client
-        .post(`tests`, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-            name: data.name,
-            project_id: project.id
-          })
-        })
-        .json()) as any;
-
-      setModalOpened(false);
-      navigate(`/tests/${test.id}/config`);
-    } catch (error) {
-      showNotification({
-        title: 'Test creation failed',
-        message: `${error}`,
-        autoClose: 5000,
-        color: 'red',
-        icon: <IconX />
-      });
-    }
+    createTest.mutate(
+      { name: data.name, projectId: projectId },
+      {
+        onSuccess: (data) => {
+          setModalOpened(false);
+          project.refetch();
+          navigate(`/tests/${data.id}/config`);
+        },
+        onError(error) {
+          showNotification({
+            title: 'Test creation failed',
+            message: `${error}`,
+            autoClose: 5000,
+            color: 'red',
+            icon: <IconX />
+          });
+        }
+      }
+    );
   }
+
   return (
     <Stack>
       <Paper>
@@ -65,7 +67,7 @@ export function ProjectTests() {
         </Button>
       </Paper>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
-        {project.tests?.map((test, idx) => {
+        {project.data?.tests?.map((test, idx) => {
           return <TestRunCard test={test} key={idx} />;
         })}
       </div>

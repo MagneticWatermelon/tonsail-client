@@ -1,6 +1,6 @@
 import { useOrganization } from '@/features/organization';
+import { useCreateProject } from '@/features/project';
 import { User, UserSection } from '@/features/user';
-import { client } from '@/lib/apiClient';
 import {
   createStyles,
   Navbar,
@@ -13,7 +13,6 @@ import {
   ActionIcon,
   Modal,
   Stack,
-  useMantineColorScheme,
   TextInput,
   ScrollArea,
   MediaQuery,
@@ -88,6 +87,7 @@ interface NavBarProps {
 export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const createProject = useCreateProject();
   const [projectsOpened, setProjectsOpened] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
   const organization = useOrganization(user.organizationId);
@@ -98,38 +98,32 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
     }
   });
 
-  async function handleProjectAdd(data: { name: string }) {
-    try {
-      await client
-        .post(`projects`, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-            name: data.name,
-            organization_id: user.organizationId
-          })
-        })
-        .json();
-
-      setModalOpened(false);
-      organization.refetch();
-      showNotification({
-        title: 'Success',
-        message: `Project created`,
-        autoClose: 5000,
-        color: 'green',
-        icon: <IconCheck />
-      });
-    } catch (error) {
-      showNotification({
-        title: 'Project creation failed',
-        message: `${error}`,
-        autoClose: 5000,
-        color: 'red',
-        icon: <IconX />
-      });
-    }
+  async function handleCreateProject(data: { name: string }) {
+    createProject.mutate(
+      { name: data.name, organizationId: user.organizationId },
+      {
+        onSuccess: () => {
+          setModalOpened(false);
+          organization.refetch();
+          showNotification({
+            title: 'Success',
+            message: `Project created`,
+            autoClose: 5000,
+            color: 'green',
+            icon: <IconCheck />
+          });
+        },
+        onError(error) {
+          showNotification({
+            title: 'Project creation failed',
+            message: `${error}`,
+            autoClose: 5000,
+            color: 'red',
+            icon: <IconX />
+          });
+        }
+      }
+    );
   }
 
   return (
@@ -224,7 +218,7 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
           </Text>
         }
         centered>
-        <form onSubmit={form.onSubmit((values) => handleProjectAdd(values))}>
+        <form onSubmit={form.onSubmit((values) => handleCreateProject(values))}>
           <Stack>
             <TextInput
               {...form.getInputProps('name')}

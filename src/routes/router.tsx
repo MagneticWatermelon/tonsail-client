@@ -11,7 +11,7 @@ import RootRoute from './root';
 import { queryClient } from '@/lib/react-query';
 import { runMetricsLoader, runTestLoader } from '@/features/test';
 import { OrganizationProfile, runOrganizationLoader } from '@/features/organization';
-import { projectLoader, ProjectTests } from '@/features/project';
+import { ProjectTests } from '@/features/project';
 
 const router = createBrowserRouter([
   {
@@ -49,7 +49,6 @@ const router = createBrowserRouter([
       },
       {
         path: 'projects/:projectId',
-        loader: projectLoader(queryClient),
         element: <ProjectTests />
       },
       {
