@@ -26,5 +26,14 @@ export type Scenario = {
 export type Test = {
   id: string;
   name: string;
-  scenarios: Scenario[];
+  created_at: string;
+  updated_at: string;
+  projectId: string;
+  runs: TestRun[];
+};
+export type TestRun = {
+  id: string;
+  createdAt: string;
+  status: string;
+  testId: string;
 };

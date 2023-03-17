@@ -1,4 +1,4 @@
-import { Scenario, Test } from '@/features/test';
+import { Scenario } from '@/features/test';
 import produce from 'immer';
 import create from 'zustand';
 
@@ -11,6 +11,11 @@ interface TestsState {
     getTest: (id: string) => Test[];
   };
 }
+type Test = {
+  id: string;
+  name: string;
+  scenarios: Scenario[];
+};
 
 const useTestsStore = create<TestsState>()((set, get) => ({
   tests: [],

@@ -1,27 +1,18 @@
+import { useTestRuns } from '@/features/test';
 import { IconHistoryOff } from '@tabler/icons-react';
 import { DateTime } from 'luxon';
 import { DataTable } from 'mantine-datatable';
 import { useEffect } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTitleActions } from '../../stores/AppTitleStore';
 
-interface Test {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  projectId: string;
-  runs: TestRun[];
-}
-interface TestRun {
-  id: string;
-  createdAt: string;
-  status: string;
+type TestDetailRouteParams = {
   testId: string;
-}
+};
 
 export default function TestDetail() {
-  const test = useLoaderData() as Test;
+  const { testId } = useParams() as TestDetailRouteParams;
+  const test = useTestRuns(testId);
   const navigate = useNavigate();
   const { setTitle } = useTitleActions();
   useEffect(() => {
@@ -47,7 +38,7 @@ export default function TestDetail() {
             DateTime.fromISO(createdAt).toLocaleString(DateTime.DATETIME_MED)
         }
       ]}
-      records={test.runs}
+      records={test.data?.runs}
       onRowClick={(run, _rowIndex) => {
         navigate(`/runs/${run.id}`);
       }}

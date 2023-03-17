@@ -9,7 +9,7 @@ import { UserProfile } from '@/features/user';
 import { ErrorPage } from './error';
 import RootRoute from './root';
 import { queryClient } from '@/lib/react-query';
-import { runMetricsLoader, runTestLoader } from '@/features/test';
+import { runMetricsLoader } from '@/features/test';
 import { OrganizationProfile, runOrganizationLoader } from '@/features/organization';
 import { ProjectTests } from '@/features/project';
 
@@ -21,7 +21,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'tests/:testId',
-        loader: runTestLoader(queryClient),
         element: <TestDetail />
       },
       {

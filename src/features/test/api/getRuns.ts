@@ -1,22 +1,14 @@
 import { client } from '@/lib/apiClient';
-import { QueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { Test } from '../types';
 
-interface Test {
-  id: string;
-  status: string;
-}
-
-async function getTest(id: string): Promise<Test> {
+async function getTests(id: string): Promise<Test> {
   return client.get(`tests/${id}`).json();
 }
-const getTestQuery = (id: string) => ({
-  queryKey: ['test', id],
-  queryFn: () => getTest(id)
-});
 
-export const runTestLoader =
-  (queryClient: QueryClient) =>
-    async ({ params }: any) => {
-      const query = getTestQuery(params.testId);
-      return queryClient.getQueryData(query.queryKey) ?? (await queryClient.fetchQuery(query));
-    };
+export function useTestRuns(id: string) {
+  return useQuery({
+    queryKey: ['test', id],
+    queryFn: () => getTests(id)
+  });
+}
