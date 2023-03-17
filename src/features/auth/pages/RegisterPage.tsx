@@ -1,8 +1,10 @@
 import { client } from '@/lib/apiClient';
-import { useLogin } from '@/providers/AuthProvider';
+import { useLogin, useRegister } from '@/providers/AuthProvider';
 import { useTitleActions } from '@/stores/AppTitleStore';
 import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PasswordStrength } from '../components/PasswordInputWithStrength';
@@ -48,7 +50,7 @@ const useStyles = createStyles((theme) => ({
 
 export function RegisterPage() {
   const { classes } = useStyles();
-  const login = useLogin();
+  const register = useRegister();
   const { setTitle } = useTitleActions();
   let navigate = useNavigate();
   let location = useLocation();
@@ -71,18 +73,26 @@ export function RegisterPage() {
     }
   });
 
-  async function handleSubmit(data: { name: string; email: string; password: string }) {
-    await client.post('register', {
-      body: new URLSearchParams({
+  async function handleRegister(data: { name: string; email: string; password: string }) {
+    register.mutate(
+      {
         name: data.name,
         email: data.email,
         password: data.password
-      })
-    });
-
-    login.mutate(
-      { email: data.email, password: data.password },
-      { onSuccess: () => navigate(from, { replace: true }) }
+      },
+      {
+        onSuccess: () => navigate(from, { replace: true }),
+        onError(error) {
+          form.reset();
+          showNotification({
+            title: 'Register Failed',
+            message: `${error}`,
+            autoClose: 5000,
+            color: 'red',
+            icon: <IconX />
+          });
+        }
+      }
     );
   }
 
@@ -95,7 +105,7 @@ export function RegisterPage() {
               Get started
             </Title>
 
-            <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+            <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
               <TextInput
                 label="Name"
                 placeholder="Graham Bell"
