@@ -14,8 +14,7 @@ export default function ScenarioOptions() {
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
         minWidth: '0'
-      }}
-    >
+      }}>
       <Stack p="sm">
         <Divider label="General" labelProps={{ fz: 'lg', tt: 'uppercase', fw: 500 }} />
         <TextInput label={<Text>Name</Text>} radius="xs" size="md" placeholder="Unnamed Scenario" />
@@ -38,9 +37,10 @@ export default function ScenarioOptions() {
               }
               multiline
               width={250}
-              transition="fade"
-              transitionDuration={200}
-            >
+              transitionProps={{
+                transition: 'fade',
+                duration: 200
+              }}>
               {' '}
             </InputTooltip>
           }

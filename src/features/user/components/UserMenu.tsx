@@ -15,7 +15,7 @@ export function UserMenu() {
 
   return (
     <Group position="center">
-      <Menu withArrow width={200} position="bottom" transition="pop">
+      <Menu withArrow width={200} position="bottom" transitionProps={{ transition: 'pop' }}>
         <Menu.Target>
           <ActionIcon>
             <IconDotsVertical size={16} stroke={1.5} />

@@ -6,13 +6,7 @@ export default function StageOptions() {
   return (
     <Stack>
       <Group>
-      <TextInput
-      label="Users"
-          radius="xs"
-          size="md"
-          placeholder="10"
-      >
-      </TextInput>
+        <TextInput label="Users" radius="xs" size="md" placeholder="10"></TextInput>
         <TextInput
           label={
             <InputTooltip
@@ -29,9 +23,7 @@ export default function StageOptions() {
               }
               multiline
               width={250}
-              transition="fade"
-              transitionDuration={200}
-            >
+              transitionProps={{ transition: 'fade', duration: 200 }}>
               {' '}
             </InputTooltip>
           }

@@ -5,7 +5,6 @@ import {
   Group,
   MantineTheme,
   Menu,
-  Paper,
   createStyles,
   Stack,
   Text,
@@ -77,7 +76,7 @@ export default function TestRunCard({ test }: Props) {
             truncate>
             {test.name}
           </Text>
-          <Menu withArrow width={160} position="bottom" transition="pop">
+          <Menu withArrow width={160} position="bottom" transitionProps={{ transition: 'pop' }}>
             <Menu.Target>
               <ActionIcon>
                 <IconDotsVertical size={20} />
