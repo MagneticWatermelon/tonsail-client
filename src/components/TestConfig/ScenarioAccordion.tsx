@@ -29,7 +29,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
 
   return (
     <ScrollArea.Autosize
-      maxHeight="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
+      mah="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
       style={{ flexGrow: 1 }}
       scrollbarSize={8}
       scrollHideDelay={100}>
@@ -54,7 +54,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
         {scenarios.map((s) => {
           return (
             <Accordion.Item value={s.id} key={s.id}>
-              <AccordionControl scenario={s}>
+              <AccordionControl style={{ padding: `1rem 0.5rem` }} scenario={s}>
                 <Text
                   display="block"
                   style={{ whiteSpace: 'nowrap', width: '100px' }}

@@ -3,13 +3,12 @@ import { useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white
   },
 
   label: {
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4]
-    }`
+    border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4]
+      }`
   },
 
   control: {
@@ -24,15 +23,15 @@ const useStyles = createStyles((theme) => ({
 function pickGradient(method: string, theme: MantineTheme): string {
   switch (method) {
     case 'GET':
-      return theme.fn.gradient({from:"blue", to:"lime"})
+      return theme.fn.gradient({ from: 'blue', to: 'lime' });
     case 'POST':
-      return theme.fn.gradient({from:"orange", to:"yellow"})
+      return theme.fn.gradient({ from: 'orange', to: 'yellow' });
     case 'PUT':
-      return theme.fn.gradient({from:"indigo", to:"teal"})
+      return theme.fn.gradient({ from: 'indigo', to: 'teal' });
     case 'DELETE':
-      return theme.fn.gradient({from:"red", to:"orange"})
+      return theme.fn.gradient({ from: 'red', to: 'orange' });
     default:
-      return theme.fn.gradient({from:"violet", to:"pink"})
+      return theme.fn.gradient({ from: 'violet', to: 'pink' });
   }
 }
 
@@ -45,7 +44,7 @@ export function GradientSegmentedControl(props: SegmentedControlProps) {
       {...props}
       onChange={(v) => setColor(pickGradient(v, theme))}
       styles={() => ({
-        active: {
+        indicator: {
           backgroundImage: color
         }
       })}

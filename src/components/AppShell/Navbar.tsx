@@ -41,9 +41,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   section: {
-    marginLeft: -theme.spacing.md,
-    marginRight: -theme.spacing.md,
-    marginBottom: theme.spacing.md,
+    marginLeft: `calc(${theme.spacing.md} * -1)`,
+    marginRight: `calc(${theme.spacing.md} * -1)`,
+    marginBottom: `calc(${theme.spacing.md} * 1)`,
 
     '&:not(:last-of-type)': {
       borderBottom: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
@@ -52,8 +52,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   mainLinks: {
-    paddingLeft: theme.spacing.md - theme.spacing.xs,
-    paddingRight: theme.spacing.md - theme.spacing.xs,
+    paddingLeft: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
+    paddingRight: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
     paddingBottom: theme.spacing.md
   },
 
@@ -62,7 +62,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     width: '167px',
     fontSize: theme.fontSizes.xs,
-    padding: `8px ${theme.spacing.xs}px`,
+    padding: `8px ${theme.spacing.xs}`,
     borderRadius: theme.radius.sm,
     fontWeight: 500,
     color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
@@ -163,7 +163,7 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
             </ActionIcon>
           </Group>
           <Collapse in={projectsOpened} pl="lg">
-            <ScrollArea.Autosize maxHeight={250} offsetScrollbars scrollbarSize={6}>
+            <ScrollArea.Autosize mah={250} offsetScrollbars scrollbarSize={6}>
               {organization.data?.projects?.map((p, idx) => {
                 return (
                   <NavLink

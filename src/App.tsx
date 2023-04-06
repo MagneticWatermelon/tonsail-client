@@ -9,7 +9,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/router';
 import { SpotlightActions } from './stores/SpotlightActions';
 import { queryClient } from './lib/react-query';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 
 export default function App() {
   const preferredColorScheme = useColorScheme('dark');
@@ -26,17 +26,16 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <NotificationsProvider position="bottom-right">
-            <SpotlightProvider
-              shortcut={['mod + K']}
-              actions={SpotlightActions}
-              searchIcon={<IconSearch size={18} />}
-              searchPlaceholder="Search..."
-              nothingFoundMessage="Nothing found...">
-              <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </SpotlightProvider>
-          </NotificationsProvider>
+          <SpotlightProvider
+            shortcut={['mod + K']}
+            actions={SpotlightActions}
+            searchIcon={<IconSearch size={18} />}
+            searchPlaceholder="Search..."
+            nothingFoundMessage="Nothing found...">
+            <Notifications position="bottom-right" />
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </SpotlightProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </QueryClientProvider>

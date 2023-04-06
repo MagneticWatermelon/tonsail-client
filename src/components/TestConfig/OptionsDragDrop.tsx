@@ -11,9 +11,9 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.md,
     border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
       }`,
-    paddingTop: `${theme.spacing.sm}px`,
-    paddingBottom: `${theme.spacing.sm}px`,
-    paddingLeft: theme.spacing.xl - theme.spacing.xs, // to offset drag handle
+    paddingTop: theme.spacing.sm,
+    paddingBottom: theme.spacing.sm,
+    paddingLeft: `calc(${theme.spacing.xl} - ${theme.spacing.xs})`, // to offset drag handle
     paddingRight: theme.spacing.lg, // to offset drag handle
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white
   },
@@ -59,8 +59,7 @@ export function OptionsDnD() {
         <div
           className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging })}
           ref={provided.innerRef}
-          {...provided.draggableProps}
-        >
+          {...provided.draggableProps}>
           <div {...provided.dragHandleProps} className={classes.dragHandle}>
             <IconGripVertical size={18} stroke={1.5} />
           </div>
@@ -75,8 +74,7 @@ export function OptionsDnD() {
                 color="dimmed"
                 lineClamp={1}
                 fz="xs"
-                fw="bold"
-              >
+                fw="bold">
                 {item.name}
               </Text>
             </Group>
@@ -86,8 +84,7 @@ export function OptionsDnD() {
               color="dimmed"
               lineClamp={1}
               fz="xs"
-              fw={400}
-            >
+              fw={400}>
               {item.url}
             </Text>
           </Flex>
@@ -98,16 +95,14 @@ export function OptionsDnD() {
 
   return (
     <ScrollArea.Autosize
-      maxHeight="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
+      mah="calc(100vh - var(--mantine-header-height, 0px) - 114px)"
       style={{ flexGrow: 1 }}
       scrollbarSize={8}
-      scrollHideDelay={100}
-    >
+      scrollHideDelay={100}>
       <DragDropContext
         onDragEnd={({ destination, source }) =>
           reorderRequests(source.index, destination?.index || 0)
-        }
-      >
+        }>
         <Droppable droppableId="dnd-list" direction="vertical">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
