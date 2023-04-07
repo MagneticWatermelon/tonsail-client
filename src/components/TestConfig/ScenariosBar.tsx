@@ -63,10 +63,10 @@ export default function ScenariosBar() {
       <Divider />
       <ScenarioAccordion scenarios={scenarios} />
       <Button.Group>
-        <Button color="green.7" fullWidth variant="outline">
+        <Button color="neonGreen" fullWidth variant="outline">
           New
         </Button>
-        <Button color="limeZest" fullWidth variant="outline">
+        <Button color="blushBomb.6" fullWidth variant="outline">
           Import
         </Button>
       </Button.Group>

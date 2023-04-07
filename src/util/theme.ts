@@ -3,8 +3,11 @@ import { DefaultMantineColor, MantineThemeOverride, Tuple } from '@mantine/core'
 type ExtendedCustomColors =
   | 'spaceCadet'
   | 'limeZest'
-  | 'brightPink'
-  | 'oceanBlue'
+  | 'wisteria'
+  | 'dynamite'
+  | 'slate'
+  | 'blushBomb'
+  | 'neonGreen'
   | DefaultMantineColor;
 
 declare module '@mantine/core' {
@@ -47,6 +50,30 @@ export const theme: MantineThemeOverride = {
       '#a5be00',
       '#8a9e00'
     ],
+    neonGreen: [
+      '#c3ffba',
+      '#b2ffa7',
+      '#a1ff94',
+      '#8dff7f',
+      '#78ff67',
+      '#5eff49',
+      '#39ff14',
+      '#30de10',
+      '#28be0c',
+      '#1f9e08'
+    ],
+    blushBomb: [
+      '#f3d6da',
+      '#f0ccd1',
+      '#ecc1c8',
+      '#e9b7bf',
+      '#e5adb6',
+      '#e1a3ad',
+      '#dd99a4',
+      '#c0848e',
+      '#a47079',
+      '#885d64'
+    ],
     spaceCadet: [
       '#b4bac9',
       '#9ca4b8',
@@ -59,29 +86,41 @@ export const theme: MantineThemeOverride = {
       '#0e152f',
       '#05091a'
     ],
-    oceanBlue: [
-      '#7AD1DD',
-      '#5FCCDB',
-      '#44CADC',
-      '#2AC9DE',
-      '#1AC2D9',
-      '#11B7CD',
-      '#09ADC3',
-      '#0E99AC',
-      '#128797',
-      '#147885'
+    slate: [
+      '#d1ecf7',
+      '#c5e7f5',
+      '#b9e2f3',
+      '#adddf1',
+      '#a0d8ef',
+      '#94d3ed',
+      '#87ceeb',
+      '#75b3cc',
+      '#6398ae',
+      '#6398ae'
     ],
-    brightPink: [
-      '#F0BBDD',
-      '#ED9BCF',
-      '#EC7CC3',
-      '#ED5DB8',
-      '#F13EAF',
-      '#F71FA7',
-      '#FF00A1',
-      '#E00890',
-      '#C50E82',
-      '#AD1374'
+    dynamite: [
+      '#ffbbae',
+      '#ffa999',
+      '#ff6f5b',
+      '#ff6f5b',
+      '#ff6f5b',
+      '#ff5844',
+      '#ff3c29',
+      '#de3322',
+      '#be2a1c',
+      '#9e2115'
+    ],
+    wisteria: [
+      '#e9d9f2',
+      '#e4cfee',
+      '#dfc6eb',
+      '#d9bce7',
+      '#d4b3e3',
+      '#cea9e0',
+      '#c9a0dc',
+      '#ae8bbf',
+      '#9576a3',
+      '#7c6188'
     ]
   }
 };

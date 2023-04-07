@@ -74,11 +74,11 @@ export default function RequestsBar() {
       <Divider />
       <OptionsDnD />
       <Button.Group>
-        <Button color="limeZest" variant="outline">
+        <Button color="slate.6" variant="outline">
           Group
         </Button>
         <Button
-          color="green.7"
+          color="neonGreen.6"
           fullWidth
           onClick={() => {
             addRequest({
@@ -90,7 +90,7 @@ export default function RequestsBar() {
           variant="outline">
           Request
         </Button>
-        <Button color="limeZest" variant="outline">
+        <Button color="wisteria.6" variant="outline">
           Sleep
         </Button>
       </Button.Group>
