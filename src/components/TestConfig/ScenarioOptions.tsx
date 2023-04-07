@@ -22,7 +22,7 @@ export default function ScenarioOptions() {
           label={
             <InputTooltip
               textLabel="Timeout"
-              color={theme.colorScheme === 'dark' ? 'dark.4' : 'blue.8'}
+              color={theme.colorScheme === 'dark' ? 'dark.5' : 'dark.6'}
               label={
                 <Stack>
                   <Text fz="xs">

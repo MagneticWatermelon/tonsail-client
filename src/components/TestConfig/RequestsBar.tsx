@@ -47,8 +47,7 @@ export default function RequestsBar() {
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
         width: '250px'
-      }}
-    >
+      }}>
       <Group p="sm">
         <Group spacing={5}>
           <Text color="gray.5" fz="xs" fw="bold" pl="lg" transform="uppercase">
@@ -57,27 +56,25 @@ export default function RequestsBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+            color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
             size="lg"
-            p={0}
-          >
+            p={0}>
             {requests.length}
           </Badge>
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+          color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
           onClick={() => addRequest({ id: nanoid(8), method: 'GET', url: '' })}
           size={22}
-          style={{ marginLeft: 'auto' }}
-        >
+          style={{ marginLeft: 'auto' }}>
           <IconPlus />
         </ActionIcon>
       </Group>
       <Divider />
       <OptionsDnD />
       <Button.Group>
-        <Button color="blue.7" variant="outline">
+        <Button color="limeZest" variant="outline">
           Group
         </Button>
         <Button
@@ -90,11 +87,10 @@ export default function RequestsBar() {
               url: 'https://test.k6.io/contacts.php'
             });
           }}
-          variant="outline"
-        >
+          variant="outline">
           Request
         </Button>
-        <Button color="blue.7" variant="outline">
+        <Button color="limeZest" variant="outline">
           Sleep
         </Button>
       </Button.Group>

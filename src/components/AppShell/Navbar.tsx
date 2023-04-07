@@ -127,7 +127,15 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
   }
 
   return (
-    <Navbar hiddenBreakpoint="sm" hidden={hidden} width={{ sm: 200, lg: 200 }} p="md">
+    <Navbar
+      style={{
+        backgroundColor:
+          theme.colorScheme === 'dark' ? theme.colors.spaceCadet[9] : theme.colors.gray[0]
+      }}
+      hiddenBreakpoint="sm"
+      hidden={hidden}
+      width={{ sm: 200, lg: 200 }}
+      p="md">
       <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
         <Burger
           opened={!hidden}

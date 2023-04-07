@@ -33,8 +33,7 @@ export default function StagesBar() {
         justifyContent: 'space-between',
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
         width: '180px'
-      }}
-    >
+      }}>
       <Group p="sm">
         <Group spacing={5}>
           <Text color="gray.5" fz="xs" fw="bold" pl="lg" transform="uppercase">
@@ -43,16 +42,15 @@ export default function StagesBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+            color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
             size="lg"
-            p={0}
-          >
+            p={0}>
             {stages.length}
           </Badge>
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+          color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
           onClick={() =>
             addStage({
               id: nanoid(8),
@@ -61,8 +59,7 @@ export default function StagesBar() {
             })
           }
           size={22}
-          style={{ marginLeft: 'auto' }}
-        >
+          style={{ marginLeft: 'auto' }}>
           <IconPlus />
         </ActionIcon>
       </Group>
@@ -77,8 +74,7 @@ export default function StagesBar() {
             duration: formatDuration(randomDuration())
           });
         }}
-        variant="outline"
-      >
+        variant="outline">
         New
       </Button>
     </Paper>

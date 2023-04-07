@@ -14,7 +14,7 @@ export function OrganizationProfile() {
   }, []);
 
   return (
-    <Tabs defaultValue="general" orientation="horizontal">
+    <Tabs defaultValue="general" orientation="horizontal" color="limeZest">
       <Tabs.List grow>
         <Tabs.Tab value="general">General</Tabs.Tab>
         <Tabs.Tab value="users">Users</Tabs.Tab>

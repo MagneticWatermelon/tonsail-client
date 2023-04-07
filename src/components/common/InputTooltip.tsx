@@ -1,4 +1,4 @@
-import { Center, Group, Text, Tooltip, TooltipProps } from '@mantine/core';
+import { Center, Group, Text, Tooltip, TooltipProps, useMantineTheme } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 
 interface InputTooltipProps extends TooltipProps {
@@ -6,13 +6,14 @@ interface InputTooltipProps extends TooltipProps {
 }
 
 export default function InputTooltip(props: InputTooltipProps) {
+  const theme = useMantineTheme();
   return (
     <Group style={{ gap: 5 }}>
       <Text>{props.textLabel}</Text>
       <Tooltip {...props}>
         <Text color="dimmed" sx={{ cursor: 'help' }}>
           <Center>
-            <IconInfoCircle color="#228BE6" size={20} stroke={2} />
+            <IconInfoCircle color={theme.colors.limeZest[6]} size={20} stroke={2} />
           </Center>
         </Text>
       </Tooltip>

@@ -28,8 +28,7 @@ export default function ScenariosBar() {
         height: 'calc(100vh - var(--mantine-header-height, 0px) - 32px)',
         width: '185px',
         minWidth: '185px'
-      }}
-    >
+      }}>
       <Group p="sm">
         <Group spacing={5}>
           <Text color="gray.5" fz="xs" fw="bold" pl="lg" transform="uppercase">
@@ -38,16 +37,15 @@ export default function ScenariosBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+            color={colorScheme === 'dark' ? 'limeZest' : 'dark.9'}
             size="lg"
-            p={0}
-          >
+            p={0}>
             {scenarios.length}
           </Badge>
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'blue.6' : 'blue.8'}
+          color={colorScheme === 'dark' ? 'limeZest' : 'dark.9'}
           onClick={() =>
             addScenario({
               id: nanoid(8),
@@ -58,8 +56,7 @@ export default function ScenariosBar() {
             })
           }
           size={22}
-          style={{ marginLeft: 'auto' }}
-        >
+          style={{ marginLeft: 'auto' }}>
           <IconPlus />
         </ActionIcon>
       </Group>
@@ -69,7 +66,7 @@ export default function ScenariosBar() {
         <Button color="green.7" fullWidth variant="outline">
           New
         </Button>
-        <Button color="blue.7" fullWidth variant="outline">
+        <Button color="limeZest" fullWidth variant="outline">
           Import
         </Button>
       </Button.Group>

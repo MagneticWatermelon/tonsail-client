@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import {
   AppShell,
@@ -25,7 +25,6 @@ export default function ApplicationShell({ children }: ShellProps) {
   const title = useTitle();
   const user = useUser();
   const { toggleColorScheme } = useMantineColorScheme();
-  // const [opened, setOpened] = useState(false);
   const [opened, handlers] = useDisclosure();
 
   if (user.isLoading) {
@@ -35,11 +34,13 @@ export default function ApplicationShell({ children }: ShellProps) {
   if (!user.data) {
     return <div>Erorororor</div>;
   }
+
   return (
     <AppShell
       styles={{
         main: {
-          background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
+          background:
+            theme.colorScheme === 'dark' ? theme.colors.spaceCadet[9] : theme.colors.gray[0]
         }
       }}
       layout="alt"
@@ -47,7 +48,13 @@ export default function ApplicationShell({ children }: ShellProps) {
       asideOffsetBreakpoint="sm"
       navbar={<NavbarSearch user={user.data} hidden={!opened} handler={handlers} />}
       header={
-        <Header height={{ base: 50 }} p="md">
+        <Header
+          style={{
+            backgroundColor:
+              theme.colorScheme === 'dark' ? theme.colors.spaceCadet[9] : theme.colors.gray[0]
+          }}
+          height={{ base: 50 }}
+          p="md">
           <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
               <Burger
@@ -63,7 +70,7 @@ export default function ApplicationShell({ children }: ShellProps) {
             </Title>
             <ActionIcon
               variant="outline"
-              color={theme.colorScheme === 'dark' ? 'yellow' : 'blue.8'}
+              color={theme.colorScheme === 'dark' ? 'limeZest' : 'blue.8'}
               onClick={() => toggleColorScheme()}
               size={30}
               style={{ marginLeft: 'auto' }}>

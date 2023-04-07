@@ -70,12 +70,16 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                   styles={(theme) => ({
                     root: {
                       '&:hover': {
-                        color: theme.colors.blue[6],
+                        color: theme.colors.limeZest[6],
                         backgroundColor: '#3897e933'
                       },
                       '&[data-active]': {
-                        color: theme.colors.blue[0],
-                        backgroundColor: theme.fn.darken(theme.colors.blue[6], 0.1)
+                        color: theme.colors.spaceCadet[6],
+                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.2)
+                      },
+                      '&[data-active]:hover': {
+                        color: theme.colors.spaceCadet[6],
+                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.1)
                       }
                     }
                   })}
@@ -90,12 +94,16 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                   styles={(theme) => ({
                     root: {
                       '&:hover': {
-                        color: theme.colors.blue[6],
+                        color: theme.colors.limeZest[6],
                         backgroundColor: '#3897e933'
                       },
                       '&[data-active]': {
-                        color: theme.colors.blue[0],
-                        backgroundColor: theme.fn.darken(theme.colors.blue[6], 0.1)
+                        color: theme.colors.spaceCadet[6],
+                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.2)
+                      },
+                      '&[data-active]:hover': {
+                        color: theme.colors.spaceCadet[6],
+                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.1)
                       }
                     }
                   })}

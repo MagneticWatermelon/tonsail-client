@@ -23,14 +23,14 @@ interface Props {
   test: any;
 }
 
-function getTestStatusColor(theme: MantineTheme, runs: any[]) {
+function getTestStatusStyle(theme: MantineTheme, runs: any[]) {
   if (runs.length === 0) {
-    return theme.colors.dark[2];
+    return { color: theme.colors.dark[2], glowColor: 'rgba(140,143,163,.3)' };
   } else {
     if (runs[0].status === 'FINISHED') {
-      return theme.colors.green[6];
+      return { color: theme.colors.green[6], glowColor: 'rgba(64,192,87,.3)' };
     } else {
-      return theme.colors.yellow[5];
+      return { color: theme.colors.yellow[5], glowColor: 'rgba(250,176,5,.3)' };
     }
   }
 }
@@ -58,15 +58,19 @@ const useStyles = createStyles(() => ({
 export default function TestRunCard({ test }: Props) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const { color, glowColor } = getTestStatusStyle(theme, test.runs);
   return (
     <NeumorphicCard className={classes.card}>
       <Stack>
         <Group m="md" noWrap>
           <ColorSwatch
-            style={{ flexShrink: 0 }}
+            style={{
+              flexShrink: 0,
+              boxShadow: `inset 0 1px 0 0 rgba(255,255,255,.2),0 0 8px 2px ${glowColor}`
+            }}
             radius="xl"
             size={18}
-            color={getTestStatusColor(theme, test.runs)}
+            color={color}
           />
           <Text
             component={Link}

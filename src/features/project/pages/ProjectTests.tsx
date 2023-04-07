@@ -60,6 +60,7 @@ export function ProjectTests() {
       <Paper>
         <Button
           variant="outline"
+          color="limeZest"
           onClick={() => {
             setModalOpened(true);
           }}>
