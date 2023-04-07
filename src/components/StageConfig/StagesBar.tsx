@@ -66,7 +66,7 @@ export default function StagesBar() {
       <Divider />
       <StageDragDrop />
       <Button
-        color="green.7"
+        color="neonGreen.6"
         onClick={() => {
           addStage({
             id: nanoid(8),

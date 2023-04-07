@@ -1,4 +1,4 @@
-import { ColorScheme, Flex, Text, useMantineTheme } from '@mantine/core';
+import { Flex, MantineTheme, Text, useMantineTheme } from '@mantine/core';
 import {
   AnimatedAreaSeries,
   AnimatedAxis,
@@ -11,28 +11,30 @@ import {
 import { Stage, useStages } from '../../stores/StagesStore';
 import { formatDuration, parseDuration } from '../../util/timeFormat';
 
-const lightTheme = buildChartTheme({
-  backgroundColor: '#A5D8FF',
-  colors: ['#228BE6'],
-  gridColor: '#336d88',
-  gridColorDark: '#1d1b38',
-  svgLabelBig: { fill: '#1d1b38' },
-  tickLength: 4
-});
+const lightTheme = (theme: MantineTheme) =>
+  buildChartTheme({
+    backgroundColor: '#A5D8FF',
+    colors: ['#228BE6'],
+    gridColor: '#336d88',
+    gridColorDark: '#1d1b38',
+    svgLabelBig: { fill: '#1d1b38' },
+    tickLength: 4
+  });
 
-const darkTheme = buildChartTheme({
-  backgroundColor: '#222',
-  colors: ['#228BE6'],
-  tickLength: 4,
-  svgLabelSmall: {
-    fill: '#e9ecef'
-  },
-  svgLabelBig: {
-    fill: '#f8f9fa'
-  },
-  gridColor: '#e9ecef',
-  gridColorDark: '#f1f3f5'
-});
+const darkTheme = (theme: MantineTheme) =>
+  buildChartTheme({
+    backgroundColor: theme.colors.spaceCadet[6],
+    colors: [theme.colors.limeZest[5]],
+    tickLength: 4,
+    svgLabelSmall: {
+      fill: '#e9ecef'
+    },
+    svgLabelBig: {
+      fill: '#f8f9fa'
+    },
+    gridColor: '#e9ecef',
+    gridColorDark: '#f1f3f5'
+  });
 
 const accessors = {
   // @ts-ignore
@@ -41,11 +43,11 @@ const accessors = {
   yAccessor: (d) => d.y
 };
 
-function chartTheme(scheme: ColorScheme): XYChartTheme {
-  if (scheme === 'dark') {
-    return darkTheme;
+function chartTheme(theme: MantineTheme): XYChartTheme {
+  if (theme.colorScheme === 'dark') {
+    return darkTheme(theme);
   } else {
-    return lightTheme;
+    return lightTheme(theme);
   }
 }
 
@@ -82,18 +84,15 @@ export default function StageChart() {
     <Flex style={{ flex: '1 1 100%', flexDirection: 'column', height: 300, minWidth: 0 }}>
       <Text>Total duration: {formatDuration(getTotalTime(stages))}</Text>
       <XYChart
-        theme={chartTheme(theme.colorScheme)}
+        theme={chartTheme(theme)}
         height={300}
         xScale={{ type: 'linear' }}
-        yScale={{ type: 'linear', nice: true }}
-      >
+        yScale={{ type: 'linear', nice: true }}>
         <AnimatedAxis
           animationTrajectory="min"
           orientation="bottom"
-          // numTicks={5}
           tickFormat={formatDuration}
           strokeWidth={0.5}
-          // hideTicks
         />
         <AnimatedAxis
           animationTrajectory="min"
