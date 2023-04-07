@@ -1,7 +1,6 @@
-import { client } from '@/lib/apiClient';
-import { useLogin, useRegister } from '@/providers/AuthProvider';
+import { useRegister } from '@/providers/AuthProvider';
 import { useTitleActions } from '@/stores/AppTitleStore';
-import { Paper, createStyles, TextInput, Button, Title } from '@mantine/core';
+import { createStyles, TextInput, Button, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
@@ -13,33 +12,23 @@ const useStyles = createStyles((theme) => ({
   registerRoot: {
     width: '100vw',
     height: '100vh',
-    backgroundSize: 'cover',
-    backgroundImage:
-      'url(https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80)'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background:
+      'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
   },
-  wrapper: {
-    height: '100%',
-    width: '50%'
-  },
-
   form: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    flexGrow: 1,
+    flexShrink: 1,
     justifyContent: 'center',
-    margin: 'auto',
     maxWidth: 450,
-    paddingBottom: 120,
-
-    [`@media (max-width: ${theme.breakpoints.sm})`]: {
-      maxWidth: '100%'
-    }
-  },
-
-  paper: {
-    height: 'inherit',
-    borderRight: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
-      }`
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 120
   },
 
   title: {
@@ -98,34 +87,30 @@ export function RegisterPage() {
 
   return (
     <div className={classes.registerRoot}>
-      <div className={classes.wrapper}>
-        <Paper className={classes.paper} radius={0} p={30}>
-          <div className={classes.form}>
-            <Title order={2} className={classes.title} align="center" mt="md" mb="xl">
-              Get started
-            </Title>
+      <div className={classes.form}>
+        <Title order={2} className={classes.title} align="center" mt="md" mb="xl">
+          Create your Tonsail account
+        </Title>
 
-            <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
-              <TextInput
-                label="Name"
-                placeholder="Graham Bell"
-                size="md"
-                {...form.getInputProps('name')}
-              />
-              <TextInput
-                label="Email address"
-                placeholder="hello@email.com"
-                mt="md"
-                size="md"
-                {...form.getInputProps('email')}
-              />
-              <PasswordStrength form={form.getInputProps('password')} />
-              <Button fullWidth mt="xl" size="md" radius="sm" type="submit">
-                Sign Up
-              </Button>
-            </form>
-          </div>
-        </Paper>
+        <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
+          <TextInput
+            label="Name"
+            placeholder="Graham Bell"
+            size="md"
+            {...form.getInputProps('name')}
+          />
+          <TextInput
+            label="Email address"
+            placeholder="hello@email.com"
+            mt="md"
+            size="md"
+            {...form.getInputProps('email')}
+          />
+          <PasswordStrength form={form.getInputProps('password')} />
+          <Button color="spaceCadet.6" fullWidth mt="xl" size="md" radius="sm" type="submit">
+            Continue
+          </Button>
+        </form>
       </div>
     </div>
   );
