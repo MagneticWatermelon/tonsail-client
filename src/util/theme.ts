@@ -8,6 +8,7 @@ type ExtendedCustomColors =
   | 'slate'
   | 'blushBomb'
   | 'neonGreen'
+  | 'nordicNoir'
   | DefaultMantineColor;
 
 declare module '@mantine/core' {
@@ -20,7 +21,10 @@ export const theme: MantineThemeOverride = {
     Input: {
       styles: (theme) => ({
         input: {
-          '&:focus-within': { borderColor: theme.colors.limeZest[6] }
+          '&:focus-within':
+            theme.colorScheme == 'dark'
+              ? { borderColor: theme.colors.limeZest[6] }
+              : { borderColor: theme.colors.spaceCadet[6] }
         }
       })
     }
@@ -61,6 +65,18 @@ export const theme: MantineThemeOverride = {
       '#30de10',
       '#28be0c',
       '#1f9e08'
+    ],
+    nordicNoir: [
+      '#96a7aa',
+      '#7d9295',
+      '#647e82',
+      '#4d6a6e',
+      '#35575c',
+      '#1d4449',
+      '#003238',
+      '#002a2f',
+      '#002227',
+      '#001b1f'
     ],
     blushBomb: [
       '#f3d6da',

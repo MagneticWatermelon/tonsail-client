@@ -1,4 +1,11 @@
-import { createStyles, TextInput, PasswordInput, Button, Title } from '@mantine/core';
+import {
+  createStyles,
+  TextInput,
+  PasswordInput,
+  Button,
+  Title,
+  useMantineTheme
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from '@/providers/AuthProvider';
@@ -14,7 +21,9 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background:
-      'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
+      theme.colorScheme == 'light'
+        ? 'linear-gradient(180deg, rgba(255,221,225,1) 0%, rgba(221,153,164,1) 100%)'
+        : 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
   },
   form: {
     height: '100%',
@@ -29,6 +38,15 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: 120
   },
 
+  button: {
+    backgroundColor:
+      theme.colorScheme == 'dark' ? theme.colors.spaceCadet[6] : theme.colors.nordicNoir[6],
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.nordicNoir[5]
+    }
+  },
+
   title: {
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`
@@ -36,6 +54,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function LoginPage() {
+  const theme = useMantineTheme();
   const { classes } = useStyles();
   const { setTitle } = useTitleActions();
   setTitle('Login');
@@ -97,7 +116,7 @@ export function LoginPage() {
             size="md"
             {...form.getInputProps('password')}
           />
-          <Button color="spaceCadet.6" fullWidth mt="xl" size="md" radius="sm" type="submit">
+          <Button className={classes.button} fullWidth mt="xl" size="md" radius="sm" type="submit">
             Continue
           </Button>
         </form>

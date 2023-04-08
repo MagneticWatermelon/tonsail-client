@@ -16,7 +16,9 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background:
-      'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
+      theme.colorScheme == 'light'
+        ? 'linear-gradient(180deg, rgba(255,221,225,1) 0%, rgba(221,153,164,1) 100%)'
+        : 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
   },
   form: {
     height: '100%',
@@ -29,6 +31,15 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: 30,
     paddingRight: 30,
     paddingBottom: 120
+  },
+
+  button: {
+    backgroundColor:
+      theme.colorScheme == 'dark' ? theme.colors.spaceCadet[6] : theme.colors.nordicNoir[6],
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.nordicNoir[5]
+    }
   },
 
   title: {
@@ -107,7 +118,7 @@ export function RegisterPage() {
             {...form.getInputProps('email')}
           />
           <PasswordStrength form={form.getInputProps('password')} />
-          <Button color="spaceCadet.6" fullWidth mt="xl" size="md" radius="sm" type="submit">
+          <Button className={classes.button} fullWidth mt="xl" size="md" radius="sm" type="submit">
             Continue
           </Button>
         </form>
