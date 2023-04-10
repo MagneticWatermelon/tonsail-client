@@ -19,6 +19,7 @@
     "@tanstack/react-query-devtools": "^4.29.0",
     "@types/react-beautiful-dnd": "^13.1.4",
     "@visx/curve": "^3.0.0",
+    "@visx/glyph": "^3.0.0",
     "@visx/text": "^3.0.0",
     "@visx/xychart": "^3.1.2",
     "avvvatars-react": "^0.4.2",
