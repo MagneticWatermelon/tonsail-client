@@ -3,15 +3,14 @@ import RequestConfig from '../components/RequestConfig/RequestConfig';
 import StageConfig from '../components/StageConfig/StageConfig';
 import TestDetail from '../components/Test/TestDetail';
 import TestConfig from '../components/TestConfig/TestConfig';
-import TestRuns from '../components/TestRuns/TestRuns';
 import { LoginPage, RegisterPage } from '@/features/auth';
 import { UserProfile } from '@/features/user';
 import { ErrorPage } from './error';
 import RootRoute from './root';
 import { queryClient } from '@/lib/react-query';
-import { runMetricsLoader } from '@/features/test';
 import { OrganizationProfile, runOrganizationLoader } from '@/features/organization';
 import { ProjectTests } from '@/features/project';
+import { TonsailTestRun } from '@/features/test';
 
 const router = createBrowserRouter([
   {
@@ -52,8 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'runs/:runId',
-        loader: runMetricsLoader(queryClient),
-        element: <TestRuns />
+        element: <TonsailTestRun />
       }
     ]
   },

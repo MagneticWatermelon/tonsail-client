@@ -37,3 +37,24 @@ export type TestRun = {
   status: string;
   testId: string;
 };
+
+export type RunMetric = {
+  name: string;
+  runId: string;
+  values: Values[];
+};
+
+export type Values = {
+  ts: string;
+  value: number;
+};
+
+export type MetricQueryParams = {
+  runID: string;
+  name: string;
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'PATCH';
+  status?: string;
+  scenario?: string;
+  url?: string;
+  limit?: string;
+};
