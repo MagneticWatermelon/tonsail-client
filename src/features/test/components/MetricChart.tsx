@@ -14,20 +14,20 @@ import { RenderTooltipGlyphProps } from '@visx/xychart/lib/components/Tooltip';
 import { RunMetric } from '../types';
 import { UseQueryResult } from '@tanstack/react-query';
 
-const lightTheme = (theme: MantineTheme) =>
+const lightTheme = (theme: MantineTheme, colors: string[]) =>
   buildChartTheme({
-    backgroundColor: '#A5D8FF',
-    colors: [theme.colors.green[6], theme.colors.blue[6], theme.colors.yellow[6]],
+    backgroundColor: theme.colors.slate[0],
+    colors: colors,
     gridColor: '#336d88',
     gridColorDark: '#1d1b38',
     svgLabelBig: { fill: '#1d1b38' },
     tickLength: 4
   });
 
-const darkTheme = (theme: MantineTheme) =>
+const darkTheme = (theme: MantineTheme, colors: string[]) =>
   buildChartTheme({
     backgroundColor: theme.colors.spaceCadet[6],
-    colors: [theme.colors.green[6], theme.colors.blue[6], theme.colors.yellow[6]],
+    colors: colors,
     tickLength: 4,
     svgLabelSmall: {
       fill: '#e9ecef'
@@ -39,11 +39,11 @@ const darkTheme = (theme: MantineTheme) =>
     gridColorDark: '#f1f3f5'
   });
 
-function chartTheme(theme: MantineTheme): XYChartTheme {
+function chartTheme(theme: MantineTheme, colors: string[]): XYChartTheme {
   if (theme.colorScheme == 'dark') {
-    return darkTheme(theme);
+    return darkTheme(theme, colors);
   } else {
-    return lightTheme(theme);
+    return lightTheme(theme, colors);
   }
 }
 
@@ -55,14 +55,15 @@ const accessors = {
 };
 
 type MetricChartProps = {
+  colors: string[];
   metricList: UseQueryResult<RunMetric, unknown>[];
 };
-export default function MetricChart({ metricList }: MetricChartProps) {
+export default function MetricChart({ colors, metricList }: MetricChartProps) {
   const theme = useMantineTheme();
 
   return (
     <XYChart
-      theme={chartTheme(theme)}
+      theme={chartTheme(theme, colors)}
       xScale={{ type: 'time' }}
       yScale={{ type: 'linear', nice: true }}>
       <AnimatedAxis
@@ -119,7 +120,7 @@ export default function MetricChart({ metricList }: MetricChartProps) {
             <GlyphDot
               left={x}
               top={y}
-              stroke={chartTheme(theme).gridStyles.stroke}
+              stroke={chartTheme(theme, colors).gridStyles.stroke}
               fill={color}
               r={size}
               {...handlers}
