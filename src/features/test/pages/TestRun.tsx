@@ -8,9 +8,10 @@ import {
   Group,
   MultiSelect,
   Popover,
-  Select
+  Select,
+  Text
 } from '@mantine/core';
-import { useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMetricQueries } from '../api/getRunMetrics';
 import MetricChart from '../components/MetricChart';
@@ -18,6 +19,7 @@ import { useForm } from '@mantine/form';
 import { randomId, useListState } from '@mantine/hooks';
 import { IconTrashX } from '@tabler/icons-react';
 import { MetricQueryParams } from '../types';
+import { useMetricCatalog } from '../api/getMetricCatalog';
 
 interface Params {
   runId: string;
@@ -66,17 +68,6 @@ const data = [
   }
 ];
 
-const metricNameData = [
-  {
-    value: 'http_request_rate',
-    label: 'Request Rate'
-  },
-  {
-    value: 'http_response_rate',
-    label: 'Response Rate'
-  }
-];
-
 function extractColors(
   queries: {
     color: string;
@@ -88,14 +79,41 @@ function extractColors(
   return queries.map((q) => q.color);
 }
 
+// Taken from https://stackoverflow.com/a/5365036
+function randomColor() {
+  return '#' + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, '0');
+}
+
+interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  description: string;
+}
+
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ image, label, description, ...others }: ItemProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <div>
+          <Text size="sm">{label}</Text>
+          <Text size="xs" opacity={0.65}>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
+
 export function TonsailTestRun() {
   const { runId } = useParams<keyof Params>() as Params;
   const [queries, queryHandlers] = useListState<MetricQueryParams>([]);
   const metricList = useMetricQueries(queries);
+  const metricCatalog = useMetricCatalog();
 
   const queriesForm = useForm({
     initialValues: {
-      queries: [{ color: '', name: '', query: [''], key: randomId() }]
+      queries: [{ color: randomColor(), name: '', query: [''], key: randomId() }]
     },
     transformValues: (values) => {
       let omitted = values.queries.map((a) => {
@@ -133,7 +151,7 @@ export function TonsailTestRun() {
         })}>
         {queriesForm.values.queries.map((q, index) => {
           return (
-            <Group key={q.key} mb="sm" miw="10rem">
+            <Group key={q.key} mb="sm" maw="50rem">
               <Popover position="bottom">
                 <Popover.Target>
                   <ColorSwatch color={q.color} />
@@ -144,12 +162,19 @@ export function TonsailTestRun() {
                 </Popover.Dropdown>
               </Popover>
 
-              <Select
-                data={metricNameData}
-                {...queriesForm.getInputProps(`queries.${index}.name`)}
-              />
+              {metricCatalog.data && (
+                <Select
+                  style={{ flex: 'auto' }}
+                  searchable
+                  nothingFound="No options"
+                  itemComponent={SelectItem}
+                  data={metricCatalog.data}
+                  {...queriesForm.getInputProps(`queries.${index}.name`)}
+                />
+              )}
 
               <MultiSelect
+                style={{ flex: 'auto' }}
                 data={data}
                 clearButtonProps={{ 'aria-label': 'Clear selection' }}
                 clearable
@@ -179,7 +204,12 @@ export function TonsailTestRun() {
           <Button
             color="blushBomb"
             onClick={() =>
-              queriesForm.insertListItem('queries', { name: '', query: [''], key: randomId() })
+              queriesForm.insertListItem('queries', {
+                color: randomColor(),
+                name: '',
+                query: [''],
+                key: randomId()
+              })
             }>
             Add
           </Button>

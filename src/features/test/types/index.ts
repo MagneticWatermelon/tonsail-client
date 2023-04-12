@@ -49,6 +49,14 @@ export type Values = {
   value: number;
 };
 
+export type MetricType = {
+  id: number;
+  name: string;
+  type: string;
+  unit: string;
+  description: string;
+};
+
 export type MetricQueryParams = {
   runID: string;
   name: string;
