@@ -2,6 +2,7 @@ import { CardProps, createStyles, Paper } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   card: {
+    border: '1px solid rgba(255, 255, 255, 0.2)',
     background:
       theme.colorScheme === 'dark'
         ? 'linear-gradient(145deg, #192246, #090f25)'
