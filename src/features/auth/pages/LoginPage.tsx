@@ -22,7 +22,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     background:
       theme.colorScheme == 'light'
-        ? 'linear-gradient(180deg, rgba(255,221,225,1) 0%, rgba(221,153,164,1) 100%)'
+        ? 'linear-gradient(0deg, rgb(203,212,225) 0%, rgb(248,250,252) 50%)'
         : 'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,21,47,1) 75%, rgba(19,28,59,1) 100%)'
   },
   form: {
