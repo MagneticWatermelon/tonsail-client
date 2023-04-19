@@ -13,8 +13,8 @@ import { formatDuration, parseDuration } from '../../util/timeFormat';
 
 const lightTheme = (theme: MantineTheme) =>
   buildChartTheme({
-    backgroundColor: '#A5D8FF',
-    colors: ['#228BE6'],
+    backgroundColor: theme.colors.nordicNoir[0],
+    colors: [theme.colors.nordicNoir[6]],
     gridColor: '#336d88',
     gridColorDark: '#1d1b38',
     svgLabelBig: { fill: '#1d1b38' },

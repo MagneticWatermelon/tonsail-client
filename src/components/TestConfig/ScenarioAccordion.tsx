@@ -2,9 +2,29 @@ import { Scenario } from '@/features/test';
 import { Accordion, AccordionControlProps, Box, NavLink, ScrollArea, Text } from '@mantine/core';
 import { IconChartArrows, IconSettings } from '@tabler/icons-react';
 import { useState } from 'react';
+import { createStyles } from '@mantine/core';
 import { Link, useMatch, useNavigate } from 'react-router-dom';
 import ScenarioDropdownMenu from './ScenarioDropdownMenu';
 
+const useStyles = createStyles((theme) => ({
+  root: {
+    '&:hover': {
+      color: theme.colorScheme == 'dark' ? theme.colors.nordicNoir[6] : theme.white,
+      backgroundColor:
+        theme.colorScheme == 'dark' ? theme.colors.limeZest[8] : theme.colors.nordicNoir[6]
+    },
+    '&[data-active]': {
+      color: theme.colorScheme == 'dark' ? theme.colors.nordicNoir[6] : theme.white,
+      backgroundColor:
+        theme.colorScheme == 'dark' ? theme.colors.limeZest[7] : theme.colors.nordicNoir[5]
+    },
+    '&[data-active]:hover': {
+      color: theme.colorScheme == 'dark' ? theme.colors.nordicNoir[6] : theme.white,
+      backgroundColor:
+        theme.colorScheme == 'dark' ? theme.colors.limeZest[8] : theme.colors.nordicNoir[6]
+    }
+  }
+}));
 type ScenarioOptionsProps = {
   scenarios: Scenario[];
 };
@@ -23,6 +43,7 @@ function AccordionControl(props: CustomAccordionControlProps) {
 }
 
 export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
+  const { classes } = useStyles();
   const [scenario, setScenario] = useState<string | null>(null);
   let matches = useMatch('/tests/:testId/config/scenario/:scenarioId/options');
   const navigate = useNavigate();
@@ -67,22 +88,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
               </AccordionControl>
               <Accordion.Panel>
                 <NavLink
-                  styles={(theme) => ({
-                    root: {
-                      '&:hover': {
-                        color: theme.colors.limeZest[6],
-                        backgroundColor: '#3897e933'
-                      },
-                      '&[data-active]': {
-                        color: theme.colors.spaceCadet[6],
-                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.2)
-                      },
-                      '&[data-active]:hover': {
-                        color: theme.colors.spaceCadet[6],
-                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.1)
-                      }
-                    }
-                  })}
+                  className={classes.root}
                   label="Options"
                   icon={<IconSettings size={18} stroke={1.5} />}
                   component={Link}
@@ -91,22 +97,7 @@ export default function ScenarioAccordion({ scenarios }: ScenarioOptionsProps) {
                   to={`scenario/${scenario}/options`}
                 />
                 <NavLink
-                  styles={(theme) => ({
-                    root: {
-                      '&:hover': {
-                        color: theme.colors.limeZest[6],
-                        backgroundColor: '#3897e933'
-                      },
-                      '&[data-active]': {
-                        color: theme.colors.spaceCadet[6],
-                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.2)
-                      },
-                      '&[data-active]:hover': {
-                        color: theme.colors.spaceCadet[6],
-                        backgroundColor: theme.fn.darken(theme.colors.limeZest[6], 0.1)
-                      }
-                    }
-                  })}
+                  className={classes.root}
                   label="Requests"
                   icon={<IconChartArrows size={18} stroke={1.5} />}
                   component={Link}

@@ -9,7 +9,8 @@ import {
   MultiSelect,
   Popover,
   Select,
-  Text
+  Text,
+  useMantineTheme
 } from '@mantine/core';
 import { forwardRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -106,6 +107,7 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
 );
 
 export function TonsailTestRun() {
+  const theme = useMantineTheme();
   const { runId } = useParams<keyof Params>() as Params;
   const [queries, queryHandlers] = useListState<MetricQueryParams>([]);
   const metricList = useMetricQueries(queries);
@@ -202,7 +204,8 @@ export function TonsailTestRun() {
 
         <Group>
           <Button
-            color="blushBomb"
+            color={theme.colorScheme == 'dark' ? 'limeZest' : 'nordicNoir'}
+            variant="outline"
             onClick={() =>
               queriesForm.insertListItem('queries', {
                 color: randomColor(),
@@ -213,7 +216,10 @@ export function TonsailTestRun() {
             }>
             Add
           </Button>
-          <Button color="blushBomb" type="submit">
+          <Button
+            color={theme.colorScheme == 'dark' ? 'limeZest' : 'nordicNoir'}
+            variant="outline"
+            type="submit">
             Submit
           </Button>
         </Group>

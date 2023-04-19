@@ -1,11 +1,12 @@
 import { useTitleActions } from '@/stores/AppTitleStore';
-import { Center, Tabs } from '@mantine/core';
+import { Center, Tabs, useMantineTheme } from '@mantine/core';
 import { useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { GeneralSettings } from '../components/GeneralSettings';
 import { Organization } from '../types';
 
 export function OrganizationProfile() {
+  const theme = useMantineTheme();
   const org = useLoaderData() as Organization;
   const { setTitle } = useTitleActions();
 
@@ -14,7 +15,10 @@ export function OrganizationProfile() {
   }, []);
 
   return (
-    <Tabs defaultValue="general" orientation="horizontal" color="limeZest">
+    <Tabs
+      defaultValue="general"
+      orientation="horizontal"
+      color={theme.colorScheme == 'dark' ? 'limeZest' : 'nordicNoir'}>
       <Tabs.List grow>
         <Tabs.Tab value="general">General</Tabs.Tab>
         <Tabs.Tab value="users">Users</Tabs.Tab>

@@ -37,7 +37,7 @@ export default function ScenariosBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'limeZest' : 'dark.9'}
+            color={colorScheme === 'dark' ? 'limeZest' : 'nordicNoir'}
             size="lg"
             p={0}>
             {scenarios.length}
@@ -45,7 +45,7 @@ export default function ScenariosBar() {
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'limeZest' : 'dark.9'}
+          color={colorScheme === 'dark' ? 'limeZest' : 'nordicNoir'}
           onClick={() =>
             addScenario({
               id: nanoid(8),
@@ -63,10 +63,16 @@ export default function ScenariosBar() {
       <Divider />
       <ScenarioAccordion scenarios={scenarios} />
       <Button.Group>
-        <Button color="neonGreen" fullWidth variant="outline">
+        <Button
+          color={colorScheme === 'dark' ? 'neonGreen' : 'neonGreen.9'}
+          fullWidth
+          variant="outline">
           New
         </Button>
-        <Button color="blushBomb.6" fullWidth variant="outline">
+        <Button
+          color={colorScheme === 'dark' ? 'blushBomb.6' : 'blushBomb.7'}
+          fullWidth
+          variant="outline">
           Import
         </Button>
       </Button.Group>

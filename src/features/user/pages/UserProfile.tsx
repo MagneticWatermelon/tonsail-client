@@ -195,14 +195,14 @@ export function UserProfile() {
                 <Button
                   type="submit"
                   variant="outline"
-                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
                   size="lg"
                   disabled={!form.isDirty()}>
                   Save Profile
                 </Button>
                 <Button
                   variant="outline"
-                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'red'}
+                  color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
                   onClick={() => setModalOpened(true)}
                   size="lg">
                   Update Password
@@ -242,7 +242,7 @@ export function UserProfile() {
               type="submit"
               variant="outline"
               disabled={!passwordForm.isDirty()}
-              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
               size="lg">
               Save Password
             </Button>

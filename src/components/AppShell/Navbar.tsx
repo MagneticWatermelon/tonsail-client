@@ -149,7 +149,7 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
         <UserSection image="" name={user.name} email={user.email} />
       </Navbar.Section>
 
-      <Navbar.Section className={classes.section}>
+      <Navbar.Section grow className={classes.section}>
         <div className={classes.mainLinks}>
           <NavLink
             className={classes.mainLink}
@@ -215,6 +215,7 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
           </div>
         </Group>
       </Navbar.Section>
+
       <Modal
         opened={modalOpened}
         onClose={() => {
@@ -239,7 +240,7 @@ export function NavbarSearch({ user, hidden, handler }: NavBarProps) {
             <Button
               type="submit"
               variant="outline"
-              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
               size="lg"
               disabled={!form.isDirty()}>
               Save

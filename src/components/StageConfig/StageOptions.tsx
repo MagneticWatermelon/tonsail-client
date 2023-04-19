@@ -11,7 +11,7 @@ export default function StageOptions() {
           label={
             <InputTooltip
               textLabel="Duration"
-              color={theme.colorScheme === 'dark' ? 'dark.4' : 'blue.8'}
+              color={theme.colorScheme === 'dark' ? 'dark.4' : 'nordicNoir'}
               label={
                 <Stack>
                   <Text fz="xs">Example: 1hour 30m 15sec</Text>

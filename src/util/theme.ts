@@ -25,7 +25,7 @@ export const theme: MantineThemeOverride = {
     body: {
       ...theme.fn.fontStyles(),
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.nordicNoir[8],
       lineHeight: theme.lineHeight
     },
 
@@ -40,7 +40,7 @@ export const theme: MantineThemeOverride = {
           '&:focus-within':
             theme.colorScheme == 'dark'
               ? { borderColor: theme.colors.limeZest[6] }
-              : { borderColor: theme.colors.spaceCadet[6] }
+              : { borderColor: theme.colors.nordicNoir[7] }
         }
       })
     }

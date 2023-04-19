@@ -1,8 +1,12 @@
-import { Tabs } from '@mantine/core';
+import { Tabs, useMantineTheme } from '@mantine/core';
 
 export default function RequestDetails() {
+  const theme = useMantineTheme();
   return (
-    <Tabs style={{ flexGrow: '1', padding: '12px' }} color="limeZest" defaultValue="headers">
+    <Tabs
+      style={{ flexGrow: '1', padding: '12px' }}
+      defaultValue="headers"
+      color={theme.colorScheme == 'dark' ? 'limeZest' : 'nordicNoir'}>
       <Tabs.List>
         <Tabs.Tab value="headers">Headers</Tabs.Tab>
         <Tabs.Tab value="params">Query Params</Tabs.Tab>

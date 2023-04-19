@@ -70,7 +70,7 @@ export function GeneralSettings({ org }: Props) {
             <Button
               type="submit"
               variant="outline"
-              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
               size="lg"
               disabled={!form.isDirty()}>
               Save

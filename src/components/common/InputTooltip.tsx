@@ -13,7 +13,13 @@ export default function InputTooltip(props: InputTooltipProps) {
       <Tooltip {...props}>
         <Text color="dimmed" sx={{ cursor: 'help' }}>
           <Center>
-            <IconInfoCircle color={theme.colors.limeZest[6]} size={20} stroke={2} />
+            <IconInfoCircle
+              color={
+                theme.colorScheme == 'dark' ? theme.colors.limeZest[6] : theme.colors.nordicNoir[6]
+              }
+              size={20}
+              stroke={2}
+            />
           </Center>
         </Text>
       </Tooltip>

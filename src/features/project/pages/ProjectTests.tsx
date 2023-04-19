@@ -60,7 +60,7 @@ export function ProjectTests() {
       <Paper>
         <Button
           variant="outline"
-          color="limeZest"
+          color={theme.colorScheme == 'dark' ? 'limeZest' : 'nordicNoir'}
           onClick={() => {
             setModalOpened(true);
           }}>
@@ -96,7 +96,7 @@ export function ProjectTests() {
             <Button
               type="submit"
               variant="outline"
-              color={theme.colorScheme == 'dark' ? 'gray.4' : 'blue'}
+              color={theme.colorScheme == 'dark' ? 'gray.4' : 'nordicNoir'}
               size="lg"
               disabled={!form.isDirty()}>
               Save

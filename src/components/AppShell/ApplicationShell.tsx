@@ -70,7 +70,7 @@ export default function ApplicationShell({ children }: ShellProps) {
             </Title>
             <ActionIcon
               variant="outline"
-              color={theme.colorScheme === 'dark' ? 'limeZest' : 'blue.8'}
+              color={theme.colorScheme === 'dark' ? 'limeZest' : 'nordicNoir'}
               onClick={() => toggleColorScheme()}
               size={30}
               style={{ marginLeft: 'auto' }}>

@@ -56,7 +56,7 @@ export default function RequestsBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
+            color={colorScheme === 'dark' ? 'limeZest.6' : 'nordicNoir'}
             size="lg"
             p={0}>
             {requests.length}
@@ -64,7 +64,7 @@ export default function RequestsBar() {
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
+          color={colorScheme === 'dark' ? 'limeZest.6' : 'nordicNoir'}
           onClick={() => addRequest({ id: nanoid(8), method: 'GET', url: '' })}
           size={22}
           style={{ marginLeft: 'auto' }}>
@@ -74,11 +74,11 @@ export default function RequestsBar() {
       <Divider />
       <OptionsDnD />
       <Button.Group>
-        <Button color="slate.6" variant="outline">
+        <Button color={colorScheme == 'dark' ? 'slate' : 'slate.9'} variant="outline">
           Group
         </Button>
         <Button
-          color="neonGreen.6"
+          color={colorScheme === 'dark' ? 'neonGreen' : 'neonGreen.9'}
           fullWidth
           onClick={() => {
             addRequest({
@@ -90,7 +90,7 @@ export default function RequestsBar() {
           variant="outline">
           Request
         </Button>
-        <Button color="wisteria.6" variant="outline">
+        <Button color={colorScheme === 'dark' ? 'wisteria' : 'wisteria.8'} variant="outline">
           Sleep
         </Button>
       </Button.Group>

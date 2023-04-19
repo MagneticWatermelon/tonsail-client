@@ -8,15 +8,14 @@ const useStyles = createStyles((theme) => ({
 
   label: {
     border: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4]
-      }`
+      }`,
+    '&[data-active], &[data-active]:hover': {
+      color: theme.white
+    }
   },
 
   control: {
     border: '0 !important'
-  },
-
-  labelActive: {
-    color: `${theme.white} !important`
   }
 }));
 

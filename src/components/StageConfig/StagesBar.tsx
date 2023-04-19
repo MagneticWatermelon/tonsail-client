@@ -42,7 +42,7 @@ export default function StagesBar() {
           <Badge
             sx={{ width: 22, height: 22, pointerEvents: 'none' }}
             variant="outline"
-            color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
+            color={colorScheme === 'dark' ? 'limeZest.6' : 'nordicNoir'}
             size="lg"
             p={0}>
             {stages.length}
@@ -50,7 +50,7 @@ export default function StagesBar() {
         </Group>
         <ActionIcon
           variant="outline"
-          color={colorScheme === 'dark' ? 'limeZest.6' : 'dark.9'}
+          color={colorScheme === 'dark' ? 'limeZest.6' : 'nordicNoir'}
           onClick={() =>
             addStage({
               id: nanoid(8),
@@ -66,7 +66,7 @@ export default function StagesBar() {
       <Divider />
       <StageDragDrop />
       <Button
-        color="neonGreen.6"
+        color={colorScheme == 'dark' ? 'neonGreen' : 'neonGreen.9'}
         onClick={() => {
           addStage({
             id: nanoid(8),
